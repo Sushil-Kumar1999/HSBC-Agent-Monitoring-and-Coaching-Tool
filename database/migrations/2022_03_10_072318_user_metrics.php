@@ -16,15 +16,15 @@ return new class extends Migration
     
     public function up()
     {
-        schema::create('user-metrics', function (Blueprint $table) {
+        schema::create('user_metrics', function (Blueprint $table) {
             $table->unsignedBigInteger('psid');
-            $table->string('site',64);
+            //$table->string('site',64); site will be listed elsewhere
             $table->enum('qualifier', ['Good', 'Medium', 'Low']);
-            $table->double('ccpoh', 22, 20);
-            $table->double('art', 22, 20);
-            $table->double('nps', 22, 20);
-            $table->double('fcr', 22, 20);
-            $table->double('online_percentage', 22, 20);
+            $table->double('ccpoh', 23, 20);
+            $table->double('art', 23, 20);
+            $table->double('nps', 23, 20);
+            $table->double('fcr', 23, 20);
+            $table->double('online_percentage', 23, 20);
             $table->timestamps();
         });
     }
