@@ -13,15 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        schema::create('team', function (Blueprint $table) {
-            $table->unsignedBigInteger('psid');
+        schema::create('teams', function (Blueprint $table) {
+            $table->unsignedBigInteger('team_id');
+            $table->unsignedBigInteger('supervisor_id');
             $table->string('site',64);
-            $table->enum('qualifier', ['Good', 'Medium', 'Low']);
-            $table->double('ccpoh', 23, 20);
-            $table->double('art', 23, 20);
-            $table->double('nps', 23, 20);
-            $table->double('fcr', 23, 20);
-            $table->double('online_percentage', 23, 20);
             $table->timestamps();
         });
     }

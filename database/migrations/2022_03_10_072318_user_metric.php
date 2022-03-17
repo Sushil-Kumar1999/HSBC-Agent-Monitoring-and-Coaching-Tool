@@ -17,9 +17,11 @@ return new class extends Migration
     public function up()
     {
         schema::create('user_metrics', function (Blueprint $table) {
+            $table->unsignedBigInteger('timestamp');
+            $table->unsignedBigInteger('team_id');
             $table->unsignedBigInteger('psid');
-            $table->string('site',64);
-            $table->enum('qualifier', ['Good', 'Medium', 'Low']);
+            $table->string('site',30);
+            $table->string('qualifier',30);
             $table->double('ccpoh', 23, 20);
             $table->double('art', 23, 20);
             $table->double('nps', 23, 20);
