@@ -18,7 +18,7 @@ return new class extends Migration
     {
         schema::create('user_metrics', function (Blueprint $table) {
             $table->unsignedBigInteger('psid');
-            //$table->string('site',64); site will be listed elsewhere
+            $table->string('site',64);
             $table->enum('qualifier', ['Good', 'Medium', 'Low']);
             $table->double('ccpoh', 23, 20);
             $table->double('art', 23, 20);
