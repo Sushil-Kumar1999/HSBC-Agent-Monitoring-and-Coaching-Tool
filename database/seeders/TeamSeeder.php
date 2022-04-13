@@ -22,9 +22,9 @@ class TeamSeeder extends Seeder
         while (($data = fgetcsv($f, 2000, ",")) !== FALSE) {
                 Team::create([
                     "team_id" => $data['0'],
-                    "site" => $data['1'],
+                    "name" => $data['1'],
                     "supervisor_id" => $data['2']
-                ]);  
+                ]);
         }
         fclose($f);
     }
