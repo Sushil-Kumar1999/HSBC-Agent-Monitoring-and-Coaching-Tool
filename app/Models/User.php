@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\UserMetric;
+
 enum role {
     case Admin;
     case Supervisor;
@@ -38,6 +40,14 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+
+    public function metrics(){
+        return $this->hasOne(UserMetric::class);
+    }
+
+
+
 
     /**
      * The attributes that should be cast.

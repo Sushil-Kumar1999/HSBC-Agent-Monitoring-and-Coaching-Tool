@@ -17,6 +17,10 @@ return new class extends Migration
             $table->unsignedBigInteger('team_id');
             $table->unsignedBigInteger('supervisor_id');
             $table->string('site',64);
+
+            $table->foreign('supervisor_id')->references('psid')->on('users')
+            ->onUpdate('cascade')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
