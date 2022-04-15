@@ -1,0 +1,23 @@
+.container {
+ display: flex;
+}
+
+#col-1 {
+
+ padding: 20px;
+ flex: 1;
+}
+.container h1{
+ padding: 20px;
+ text-align: center;
+ color: white;
+ background-color: black ;
+}
+.container h2{
+ color: white;
+}
+
+#col-2 {
+ padding: 20px;
+ flex: 1;
+}
