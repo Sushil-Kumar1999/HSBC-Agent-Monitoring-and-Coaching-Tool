@@ -3,12 +3,13 @@
  <section class="container">
  @php
   use App\Models\User;
- @endphp
+  use App\Models\UserMetric;
+  $user = User::findOrFail(1);
+  @endphp
   <div id="col-1">
-    <h1>Statistics</h1>
+    <h1>Statistics for {{$user->name}}</h1>
     <ul>
-     <li>
-
+     <li>Site:</li>
     </ul>
   </div>
   <div id="col-2">

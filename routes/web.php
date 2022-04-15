@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AgentDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/agentdashboard', function () {
-    return view('hsbc/agentdashboard/home');
-})->name('agentdashboard.show');
+Route::get('/agentdashboard',[AgentDashboardController::class,'show'])->name('agentdashboard.show');
 
 //TODO:DELETE
 //this is an example of a message being sent
