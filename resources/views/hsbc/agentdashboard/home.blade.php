@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="{{asset('css/hsbc.css') }}">
 @extends('layouts.navigationbar')
 <html>
 @section('content')
@@ -28,7 +27,7 @@
       tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
     document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
+    evt.currentTarget.className += " active"; 
   }
 </script>
 </body>

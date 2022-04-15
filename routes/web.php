@@ -19,6 +19,12 @@ Route::get('/', function () {
 
 Route::get('/agentdashboard', function () {
     return view('hsbc/agentdashboard/home');
+})->name('agentdashboard.show');
+
+//TODO:DELETE
+//this is an example of a message being sent
+Route::get('/agentdashboard2', function () {
+    return redirect()->route('agentdashboard.show')-> with('message',"Test Message");
 });
 
 Route::get('/dashboard', function () {
