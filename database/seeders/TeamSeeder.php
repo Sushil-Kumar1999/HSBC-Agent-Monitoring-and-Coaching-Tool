@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -16,7 +17,8 @@ class TeamSeeder extends Seeder
      */
     public function run()
     {
-        Team::truncate();
+        // Team::truncate();
+
         $f = fopen(base_path("database/data/Teams.csv"), "r");
 
         while (($data = fgetcsv($f, 2000, ",")) !== FALSE) {

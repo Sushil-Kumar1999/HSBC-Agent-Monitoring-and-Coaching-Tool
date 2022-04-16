@@ -17,6 +17,10 @@
  color: white;
 }
 
+ul{
+ background-color: white ;
+ padding: 30px;
+}
 #col-2 {
  padding: 20px;
  flex: 1;

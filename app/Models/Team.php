@@ -7,9 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model
 {
+    protected $primaryKey = 'team_id';
+    public $incrementing = false;
     use HasFactory;
 
     public function supervisor() {
-        return $this->belongsTo('User');
+        return $this->belongsTo(User::class,'supervisor');
+    }
+
+    public function members(){
+        return $this->hasMany(User::class,'team_id','team_id');
     }
 }

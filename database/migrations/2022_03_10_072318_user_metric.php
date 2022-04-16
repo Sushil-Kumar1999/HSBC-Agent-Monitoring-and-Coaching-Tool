@@ -29,7 +29,8 @@ return new class extends Migration
             $table->double('fcr', 23, 20);
             $table->double('online_percentage', 23, 20);
             $table->timestamps();
-            //$table->foreign('psid')->references('id')->on('users');
+            $table->foreign('psid')->references('id')->on('users')
+                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

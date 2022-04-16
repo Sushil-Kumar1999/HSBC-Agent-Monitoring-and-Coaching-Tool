@@ -18,13 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/agentdashboard',[AgentDashboardController::class,'show'])->name('agentdashboard.show');
+Route::get('/agentdashboard',[AgentDashboardController::class,'show'])->middleware(['auth','ensureuserisagent'])->name('agentdashboard.show');
 
-//TODO:DELETE
-//this is an example of a message being sent
-Route::get('/agentdashboard2', function () {
-    return redirect()->route('agentdashboard.show')-> with('message',"Test Message");
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
