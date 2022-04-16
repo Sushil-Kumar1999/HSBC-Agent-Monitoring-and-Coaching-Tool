@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Faker\Factory as Faker;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -17,19 +18,19 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
 
+        User::truncate();
         $f = fopen(base_path("database/data/Users.csv"), "r");
         $faker = Faker::create();
 
         while (($data = fgetcsv($f, 2000, ",")) !== FALSE) {
                 User::create([
-                    'psid' => $data['0'],
+                    'id' => Str::of($data['0'])->trim(),
                     'name' => $faker->name(),
                     'email' => $faker->unique()->safeEmail(),
                     'email_verified_at' => now(),
-                    'role' => $data['1'],
-                    'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                    'role' => Str::of($data['1'])->trim(),
+                    'password' => Hash::make('password'), // password
                     'remember_token' => Str::random(10),
                 ]);  
         }

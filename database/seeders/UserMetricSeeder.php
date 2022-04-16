@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\UserMetric;
+use Illuminate\Support\Str;
 
 class UserMetricSeeder extends Seeder
 {
@@ -14,9 +15,8 @@ class UserMetricSeeder extends Seeder
      * @return void
      */
     public function run(){
-        
-        UserMetric::truncate();
 
+        UserMetric::truncate();
         $f = fopen(base_path("database/data/AgentMetrics.csv"), "r");
 
        
@@ -24,15 +24,15 @@ class UserMetricSeeder extends Seeder
         while (($data = fgetcsv($f, 2000, ",")) !== FALSE) {
                 UserMetric::create([
                     'timestamp' => time(),
-                    "team_id" => $data['0'],
-                    "psid" => $data['1'],
-                    "site" => $data['2'],
-                    "qualifier" => $data['3'],
-                    "ccpoh" => $data['4'],
-                    "art" => $data['5'],
-                    "nps" => $data['6'],
-                    "fcr" => $data['7'],
-                    "online_percentage" => $data['8']
+                    "team_id" => Str::of($data['0'])->trim(),
+                    "psid" =>Str::of($data['1'])->trim(),
+                    "site" => Str::of($data['2'])->trim(),
+                    "qualifier" => Str::of($data['3'])->trim(),
+                    "ccpoh" => Str::of($data['4'])->trim(),
+                    "art" => Str::of($data['5'])->trim(),
+                    "nps" => Str::of($data['6'])->trim(),
+                    "fcr" => Str::of($data['7'])->trim(),
+                    "online_percentage" => Str::of($data['8'])->trim()
                 ]);    
         }
         fclose($f);

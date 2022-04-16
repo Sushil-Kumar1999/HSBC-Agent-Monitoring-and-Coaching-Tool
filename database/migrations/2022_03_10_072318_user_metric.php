@@ -17,9 +17,10 @@ return new class extends Migration
     public function up()
     {
         schema::create('user_metrics', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('timestamp');
-            $table->unsignedBigInteger('team_id');
-            $table->unsignedBigInteger('psid');
+            $table->unsignedInteger('team_id');
+            $table->unsignedInteger('psid');
             $table->string('site',30);
             $table->string('qualifier',30);
             $table->double('ccpoh', 23, 20);
@@ -27,11 +28,8 @@ return new class extends Migration
             $table->double('nps', 23, 20);
             $table->double('fcr', 23, 20);
             $table->double('online_percentage', 23, 20);
-
-            $table->foreign('psid')->references('psid')->on('users')
-            ->onUpdate('cascade')->onDelete('cascade');
-
             $table->timestamps();
+            //$table->foreign('psid')->references('id')->on('users');
         });
     }
 
@@ -42,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('user_metrics');
     }
 };

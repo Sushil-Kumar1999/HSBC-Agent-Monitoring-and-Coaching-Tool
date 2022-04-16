@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use App\Models\Team;
 
 class TeamSeeder extends Seeder
@@ -16,14 +17,13 @@ class TeamSeeder extends Seeder
     public function run()
     {
         Team::truncate();
-
         $f = fopen(base_path("database/data/Teams.csv"), "r");
 
         while (($data = fgetcsv($f, 2000, ",")) !== FALSE) {
                 Team::create([
-                    "team_id" => $data['0'],
-                    "name" => $data['1'],
-                    "supervisor_id" => $data['2']
+                    "team_id" => Str::of($data['0'])->trim(),
+                    "site" => Str::of($data['1'])->trim(),
+                    "supervisor_id" => Str::of($data['2'])->trim()
                 ]);
         }
         fclose($f);

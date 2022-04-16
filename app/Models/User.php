@@ -9,14 +9,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserMetric;
 
-enum role {
-    case Admin;
-    case Supervisor;
-    case Agent;
-}
 class User extends Authenticatable
 {
-    protected $primaryKey = 'psid';
+    //protected $primaryKey = 'psid';
     public $incrementing = false;
 
     use HasApiTokens, HasFactory, Notifiable;
@@ -43,7 +38,7 @@ class User extends Authenticatable
 
 
     public function metrics(){
-        return $this->hasOne(UserMetric::class);
+        return $this->hasMany(UserMetric::class);
     }
 
 

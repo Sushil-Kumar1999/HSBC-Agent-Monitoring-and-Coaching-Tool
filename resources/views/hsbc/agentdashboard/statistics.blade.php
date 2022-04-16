@@ -5,12 +5,12 @@
   use App\Models\User;
   use App\Models\UserMetric;
   $user = User::findOrFail(1);
-  $userMetric = UserMetric::where('psid','=', $user->psid);
+  
   @endphp
   <div id="col-1">
     <h1>Statistics for {{$user->name}}</h1>
     <ul>
-     <li>Site: {{$userMetric->site}}</li>
+     <li>Site: {{}}</li>
     </ul>
   </div>
   <div id="col-2">

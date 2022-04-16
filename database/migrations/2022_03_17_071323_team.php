@@ -14,12 +14,9 @@ return new class extends Migration
     public function up()
     {
         schema::create('teams', function (Blueprint $table) {
-            $table->unsignedBigInteger('team_id');
-            $table->unsignedBigInteger('supervisor_id');
+            $table->unsignedInteger('team_id');
+            $table->unsignedInteger('supervisor_id');
             $table->string('site',64);
-
-            $table->foreign('supervisor_id')->references('psid')->on('users')
-            ->onUpdate('cascade')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('teams');
     }
 };
