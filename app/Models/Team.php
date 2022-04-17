@@ -16,6 +16,6 @@ class Team extends Model
     }
 
     public function members(){
-        return $this->hasMany(User::class,'team_id','team_id');
+        return $this->hasMany(UserMetric::class,'team_id','team_id')->distinct();
     }
 }

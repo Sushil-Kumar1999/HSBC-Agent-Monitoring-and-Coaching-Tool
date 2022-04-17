@@ -14,6 +14,7 @@ class User extends Authenticatable
 {
     //protected $primaryKey = 'psid';
     public $incrementing = false;
+    public ?array $middlewares = ['auth'];
 
     use HasApiTokens, HasFactory, Notifiable;
     /**
@@ -41,15 +42,9 @@ class User extends Authenticatable
      * of latest
      */
     public function metrics(){
-        return $this->hasMany(UserMetric::class,'psid')->latest()->get();
+        return $this->hasMany(UserMetric::class,'psid')->orderBy('timestamp', 'ASC')->get();
     }
     
-    /**
-     * returns the team that the user belongs to
-     */
-    public function team(){
-        return $this->belongsTo(Team::class,'team_id','team_id');
-    }
 
     /**
      * returns the team that the user supervises

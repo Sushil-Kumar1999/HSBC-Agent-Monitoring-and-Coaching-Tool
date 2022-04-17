@@ -14,8 +14,11 @@ class TeamMetric extends Model
 {
     use HasFactory;
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+
+    /**
+     * returns the team that the user belongs to
+     */
+    public function team(){
+        return $this->belongsTo(Team::class,'team_id','team_id');
     }
 }
