@@ -121,8 +121,8 @@
                     </div>
 
                     <div class="mt-5 mr-auto p-2 justify-content-md-end">
-                        <x-button type="button" class="ml-6 btn btn-dark">
-                            {{ __('    Log in   ') }}
+                        <x-button class="ml-6 btn btn-dark">
+                            {{ __('Log in') }}
                         </x-button>
                     </div>
                 </div>
