@@ -7,7 +7,7 @@
   $metrics = $user->metrics();
   $latestmetric = null;
   if($metrics != null){
-    $latestmetric = $metrics->first();
+    $latestmetric = $metrics->last();
   }
   $times = array_map(
     function($item) {
@@ -48,6 +48,23 @@
           var nps = {!! json_encode($metrics->pluck('nps')->all()) !!};
           var fcr = {!! json_encode($metrics->pluck('fcr')->all()) !!};
           var online_percentage = {!! json_encode($metrics->pluck('online_percentage')->all()) !!};
+          const newLegendClickHandler = function (e, legendItem, legend) {
+          const index = legendItem.datasetIndex;
+          const type = legend.chart.config.type;
+          
+          for (let i = 0; i < legend.chart.data.datasets.length; i++) {
+            meta = legend.chart.getDatasetMeta(i);
+            if(i==index){
+              meta.hidden = false;
+            }else{
+              meta.hidden = true;
+            }
+          }
+          getImproving(index);
+
+          legend.chart.update();
+        }
+
           const myChart = new Chart(ctx, 
           {
               type: 'line',
@@ -61,6 +78,7 @@
                       backgroundColor:'red',
                       showLine: true,
                       yAxisID: 'y',
+                      hidden:false,
                     },
                     {
                       label: 'ART',
@@ -69,6 +87,7 @@
                       backgroundColor:'red',
                       showLine: true,
                       yAxisID: 'y',
+                      hidden:true,
                     },
                     {
                       label: 'NPS',
@@ -77,6 +96,7 @@
                       backgroundColor:'red',
                       showLine: true,
                       yAxisID: 'y',
+                      hidden:true,
                     },
                     {
                       label: 'FCR',
@@ -85,6 +105,7 @@
                       backgroundColor:'red',
                       showLine: true,
                       yAxisID: 'y',
+                      hidden:true,
                     },
                     {
                       label: 'Online Percentage',
@@ -93,11 +114,67 @@
                       backgroundColor:'red',
                       showLine: true,
                       yAxisID: 'y',
+                      hidden:true,
                     }
                   ]
+              },
+              options:{
+                indexAxis: 'x',
+                responsive: true,
+                plugins: {
+                  legend: {
+                    onClick: newLegendClickHandler,
+                    labels: {
+                    color: "black",
+                    font: {
+                      size: 18
+                    }
+                  }
+                  }
                 }
+              }
             }
           );
+      </script>
+      <h1 id='improvingText'></h1>
+
+      <script>
+        var improvingText = document.getElementById('improvingText');
+        function getImproving(index){
+          var stat;
+          var statName;
+
+          switch(index) {
+            case 0:
+              stat=ccpoh;
+              statName="CCPOH";
+              break;
+            case 1:
+              stat=art;
+              statName="ART";
+              break;
+            case 2:
+              stat=nps;
+              statName="NPS";
+              break;
+            case 3:
+              stat=fcr;
+              statName="FCR";
+              break;
+            default:
+              stat=online_percentage;
+              statName="Online Percentage";
+          }
+          stat = stat.slice(3);
+            var current = stat[0];
+            var diff=0;
+            for(let i = 0; i < stat.length; i++){
+              diff += stat[i]-current;
+              current = stat[i];
+            }
+            improvingText.textContent = ("Your "+statName+" is " +(diff<0? "not":"")+" improving!");
+          }
+          getImproving(0);
       </script>
       </ul>
   </div>
