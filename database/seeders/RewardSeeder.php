@@ -4,8 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Reward;
 
-class Reward extends Seeder
+class RewardSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +15,6 @@ class Reward extends Seeder
      */
     public function run()
     {
-        //
+        Reward::factory()->count(200)->create();
     }
 }

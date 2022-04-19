@@ -39,7 +39,7 @@
     @endif
   </div>
   <div id="col-2">
-    <h1>Graph</h1>
+    <h1>Personal Progress</h1>
     <ul>
       <script src="{{ asset('chart.js/chart.js')}}"></script>
         <canvas id="myChart" width="500" height="200"></canvas>
