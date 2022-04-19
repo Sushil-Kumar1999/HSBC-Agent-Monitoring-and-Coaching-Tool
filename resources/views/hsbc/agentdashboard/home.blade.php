@@ -1,6 +1,9 @@
 @extends('layouts.navigationbar')
 <html>
 @section('content')
+@php
+use App\Models\User;
+@endphp
 <body>
  <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'Statistics')" id="defaultOpen">Statistics</button>

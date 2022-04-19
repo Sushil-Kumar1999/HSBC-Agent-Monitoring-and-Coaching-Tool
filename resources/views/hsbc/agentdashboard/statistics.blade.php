@@ -2,7 +2,6 @@
 <div id="Statistics" class="tabcontent">
  <section class="container">
  @php
-  use App\Models\User;
   use App\Models\UserMetric;
   $metrics = $user->metrics()->get();
   $latestmetric = null;

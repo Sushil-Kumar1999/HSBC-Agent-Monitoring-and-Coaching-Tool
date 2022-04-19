@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\UserMetric;
+use App\Models\Reward;
 use App\Models\Team;
 
 class User extends Authenticatable
@@ -45,7 +46,6 @@ class User extends Authenticatable
         return $this->hasMany(UserMetric::class,'psid')->orderBy('timestamp', 'ASC');
     }
     
-
     /**
      * returns the team that the user supervises
      */
@@ -58,6 +58,27 @@ class User extends Authenticatable
      */
     public function team() {
         return $this->belongsTo(Team::class,'team_id','team_id');
+    }
+
+     /**
+     * returns all of the rewards that an agent has
+     */
+    public function rewards() {
+        return $this->hasMany(Reward::class,'psid','id')->where('type', '=', 'reward')->orderBy('created_at', 'ASC');
+    }
+
+    /**
+     * returns all of the skillbuilders that an agent has
+     */
+    public function skillbuilders() {
+        return $this->hasMany(Reward::class,'psid','id')->where('type', '=', 'skillbuilder')->orderBy('created_at', 'ASC');
+    }
+
+    /**
+     * returns all of the rewards that a supervisor has set
+     */
+    public function supervisorRewards() {
+        return $this->hasMany(Reward::class,'id','supervisor_id');
     }
     
 
