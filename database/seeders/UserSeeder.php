@@ -34,6 +34,7 @@ class UserSeeder extends Seeder
                     'email' => $faker->unique()->safeEmail(),
                     'email_verified_at' => now(),
                     'role' => Str::of($data['1'])->trim(),
+                    'team_id' => Str::of($data['2'])->trim(),
                     'password' => Hash::make('password'), // password
                     'remember_token' => Str::random(10),
                 ]);  

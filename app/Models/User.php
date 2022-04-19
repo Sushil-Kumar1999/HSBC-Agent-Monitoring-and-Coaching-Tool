@@ -42,7 +42,7 @@ class User extends Authenticatable
      * of latest
      */
     public function metrics(){
-        return $this->hasMany(UserMetric::class,'psid')->orderBy('timestamp', 'ASC')->get();
+        return $this->hasMany(UserMetric::class,'psid')->orderBy('timestamp', 'ASC');
     }
     
 
@@ -51,6 +51,13 @@ class User extends Authenticatable
      */
     public function supervises(){
         return $this->hasOne(Team::class,'supervisor_id');
+    }
+
+      /**
+     * returns the team that the user is a part of
+     */
+    public function team() {
+        return $this->belongsTo(Team::class,'team_id','team_id');
     }
     
 

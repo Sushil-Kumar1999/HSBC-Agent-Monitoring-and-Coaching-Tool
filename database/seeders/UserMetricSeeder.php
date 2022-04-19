@@ -26,15 +26,14 @@ class UserMetricSeeder extends Seeder
         while (($data = fgetcsv($f, 2000, ",")) !== FALSE) {
                 UserMetric::create([
                     'timestamp' => time(),
-                    "team_id" => Str::of($data['0'])->trim(),
-                    "psid" =>Str::of($data['1'])->trim(),
-                    "site" => Str::of($data['2'])->trim(),
-                    "qualifier" => Str::of($data['3'])->trim(),
-                    "ccpoh" => Str::of($data['4'])->trim(),
-                    "art" => Str::of($data['5'])->trim(),
-                    "nps" => Str::of($data['6'])->trim(),
-                    "fcr" => Str::of($data['7'])->trim(),
-                    "online_percentage" => Str::of($data['8'])->trim()
+                    "psid" =>Str::of($data['0'])->trim(),
+                    "site" => Str::of($data['1'])->trim(),
+                    "qualifier" => Str::of($data['2'])->trim(),
+                    "ccpoh" => Str::of($data['3'])->trim(),
+                    "art" => Str::of($data['4'])->trim(),
+                    "nps" => Str::of($data['5'])->trim(),
+                    "fcr" => Str::of($data['6'])->trim(),
+                    "online_percentage" => Str::of($data['7'])->trim()
                 ]);    
         }
         fclose($f);
@@ -42,7 +41,6 @@ class UserMetricSeeder extends Seeder
         //adds a fake history to each one
         foreach(UserMetric::get() as $metric){
             $timestamp = $metric->timestamp;
-            $team_id = $metric->team_id;
             $psid = $metric->psid;
             $site = $metric->site;
             $qualifier = $metric->qualifier;
@@ -60,7 +58,6 @@ class UserMetricSeeder extends Seeder
                 $online_percentage = $this->getRandomPercentage($online_percentage);
                 UserMetric::create([
                     'timestamp' => $timestamp,
-                    "team_id" => $team_id,
                     "psid" => $psid,
                     "site" => $site,
                     "qualifier" => $qualifier,

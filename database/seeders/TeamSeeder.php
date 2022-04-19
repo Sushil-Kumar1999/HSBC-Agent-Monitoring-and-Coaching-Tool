@@ -24,7 +24,7 @@ class TeamSeeder extends Seeder
         while (($data = fgetcsv($f, 2000, ",")) !== FALSE) {
                 Team::create([
                     "team_id" => Str::of($data['0'])->trim(),
-                    "site" => Str::of($data['1'])->trim(),
+                    "name" => Str::of($data['1'])->trim(),
                     "supervisor_id" => Str::of($data['2'])->trim()
                 ]);
         }

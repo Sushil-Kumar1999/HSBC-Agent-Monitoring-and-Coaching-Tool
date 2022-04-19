@@ -19,7 +19,6 @@ return new class extends Migration
         schema::create('user_metrics', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('timestamp');
-            $table->unsignedInteger('team_id');
             $table->unsignedInteger('psid');
             $table->string('site',30);
             $table->string('qualifier',30);

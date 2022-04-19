@@ -16,7 +16,7 @@ return new class extends Migration
         schema::create('teams', function (Blueprint $table) {
             $table->unsignedInteger('team_id');
             $table->unsignedInteger('supervisor_id');
-            $table->string('site',64);
+            $table->string('name',64);
             $table->timestamps();
             $table->foreign('supervisor_id')->references('id')->on('users')
                 ->onDelete('cascade')->onUpdate('cascade');

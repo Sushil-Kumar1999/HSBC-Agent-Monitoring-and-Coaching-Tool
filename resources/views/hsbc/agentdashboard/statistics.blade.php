@@ -4,7 +4,7 @@
  @php
   use App\Models\User;
   use App\Models\UserMetric;
-  $metrics = $user->metrics();
+  $metrics = $user->metrics()->get();
   $latestmetric = null;
   if($metrics != null){
     $latestmetric = $metrics->last();
@@ -15,7 +15,9 @@
     },
     $metrics->pluck('timestamp')->all()
   );
-
+  $team = $user->team()->get()[0];
+  $supervisor = $team->supervisor()->get()[0];
+  
 @endphp
 
   <div id="col-1">
@@ -29,7 +31,8 @@
      <li>NPS: {{$latestmetric ->nps}}</li>
      <li>FCR: {{$latestmetric->fcr}}</li>
      <li>Online Percentage: {{$latestmetric ->online_percentage}}</li>
-     <li>Team: </li>
+     <li>Team: {{$team->name}}</li>
+     <li>Supervisor: {{$supervisor->name}} ({{$supervisor->id}})</li>
     </ul>
     @else
     <b>No data loaded</b>
@@ -165,7 +168,7 @@
               stat=online_percentage;
               statName="Online Percentage";
           }
-          stat = stat.slice(3);
+          stat = stat.slice(4);
             var current = stat[0];
             var diff=0;
             for(let i = 0; i < stat.length; i++){
