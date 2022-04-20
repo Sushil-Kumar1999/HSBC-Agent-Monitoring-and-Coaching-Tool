@@ -18,7 +18,7 @@ class RewardsController extends Controller
         $reward->save();
         $page = ($reward->type=="skillbuilder")?"skillbuilderTab":"rewardsTab";
         $message = ($reward->type=="skillbuilder")?"Skillbuilder marked as complete.":"Reward succesfully redeemed.";
-        return redirect('agentdashboard')->with('message',$message)->with('page',$page);
+        return redirect()->route('agentdashboard.show')->with('message',$message)->with('page',$page);
     }
 
     public function store(Request $request)
