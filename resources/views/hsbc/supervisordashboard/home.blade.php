@@ -49,7 +49,7 @@
             <div class="button-container">
                 <button onclick="onViewMetricsClicked()">View Metrics</button>
                 <button v-on:click="onViewRewardsClicked()">View Rewards</button>
-                <button>View Skill Builders</button>
+                <button v-on:click="onViewSkillbuildersClicked()">View Skill Builders</button>
             </div>
         </div>
     </div>
@@ -70,10 +70,17 @@
                 <div v-for="reward in rewards" class="reward-item">
                     <div>@{{ reward.title }}</div>
                     <div>@{{ reward.content }}</div>
-                    <div>@{{ reward.redeemed  ? 'Reward completed' : 'Reward not completed' }}
+                    <div>@{{ reward.redeemed  ? 'Reward completed' : 'Reward not completed' }}</div>
                 </div>
             </div>
 
+            <div id="skillbuilders-list" style="display: none">
+                <div v-for="skillbuilder in skillbuilders" class="reward-item">
+                    <div>@{{ skillbuilder.title }}</div>
+                    <div>@{{ skillbuilder.content }}</div>
+                    <div>@{{ skillbuilder.redeemed  ? 'Skill builder completed' : 'Skill builder not completed' }}</div>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -85,6 +92,7 @@
         el: "#root",
         data: {
             rewards: [],
+            skillbuilders: [],
         },
         methods: {
             getRewards: function() {
@@ -96,11 +104,26 @@
                     console.log(error);
                 });
             },
+            getSkillbuilders: function() {
+                axios.get(`/api/rewards?agentId=${selectedAgent.id}&type=skillbuilder`)
+                .then(response => {
+                    this.skillbuilders = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            },
             onViewRewardsClicked: function() {
                 hideAll();
                 document.getElementById('rewards-list').style.display = "block";
                 document.getElementById('right-pane-title').textContent = `Viewing rewards for ${selectedAgent.name} (Agent ${selectedAgent.id})`;
                 this.getRewards();
+            },
+            onViewSkillbuildersClicked: function() {
+                hideAll();
+                document.getElementById('skillbuilders-list').style.display = "block";
+                document.getElementById('right-pane-title').textContent = `Viewing skill builders for ${selectedAgent.name} (Agent ${selectedAgent.id})`;
+                this.getSkillbuilders();
             }
         }
     });
@@ -116,6 +139,7 @@
     {
         document.getElementById('metrics-list').style.display = "none";
         document.getElementById('rewards-list').style.display = "none";
+        document.getElementById('skillbuilders-list').style.display = "none";
     }
 
     function onAgentClicked(id) {
