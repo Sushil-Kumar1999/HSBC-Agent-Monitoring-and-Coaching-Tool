@@ -1,0 +1,53 @@
+.hsbc-red {
+    background-color: #DA0414;
+}
+
+.left-pane, .right-pane {
+    background-color: white;
+    padding: 20px;
+}
+
+.agents-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.table-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid #636363;
+    cursor: pointer;
+}
+
+.agent-bg-red {
+    background-color: red;
+    color: white;
+}
+
+.agent-bg-amber {
+    background-color: orange;
+    color: white;
+}
+
+.agent-bg-green {
+    background-color: green;
+    color: white;
+}
+.button-container {
+    margin-top: 20px;
+}
+
+.reward-item {
+    position: relative;
+    text-align: left;
+    color: black;
+    background-color: white ;
+    overflow:auto;
+    border: 2px solid #636363;
+    box-shadow: 3px 3px 15px black;
+    padding: 8px 8px 8px 8px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+

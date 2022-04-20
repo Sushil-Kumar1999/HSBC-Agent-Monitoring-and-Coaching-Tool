@@ -10,7 +10,7 @@ class RewardsController extends Controller
     /**
      * redeems a reward
      */
-    
+
     public function redeem(Reward  $request ,$id)
     {
         $reward = Reward::find($id);
@@ -21,8 +21,23 @@ class RewardsController extends Controller
         return redirect('agentdashboard')->with('message',$message)->with('page',$page);
     }
 
-    public function store(Request $request)
+    //rewards?agentId=1&type=Reward
+    public function apiIndex(Request $request)
     {
+        $agentId = $request->input('agentId');
+        $type = $request->input('skillbuilder');
+        $query = Reward::query();
 
+        if($agentId)
+        {
+            $query->where('psid', $agentId);
+        }
+
+        if ($type)
+        {
+            $query->where('type', $type);
+        }
+
+        return $query->get();
     }
 }

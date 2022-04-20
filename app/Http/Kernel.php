@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'ensureuserisagent' => \App\Http\Middleware\EnsureUserIsAgent::class,
         'verifyrewardredeem' => \App\Http\Middleware\VerifyRewardRedeem::class,
+        'supervisor' => \App\Http\Middleware\EnsureUserIsSupervisor::class,
     ];
 }

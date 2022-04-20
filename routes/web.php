@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AgentDashboardController;
 use App\Http\Controllers\RewardsController;
+use App\Http\Controllers\SupervisorDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,7 @@ Route::get('/dashboard', function () {
 Route::put('reward/redeem/{reward}',[RewardsController::class,'redeem'])->middleware(['auth','ensureuserisagent','verifyrewardredeem'])->name('reward.redeem');
 
 require __DIR__.'/auth.php';
+
+Route::get('/supervisordashboard', [SupervisorDashboardController::class, 'show'])
+        ->middleware(['auth'])
+        ->name('supervisordashboard.show');
