@@ -41,7 +41,7 @@
     <h1>Personal Progress</h1>
     <ul>
       <script src="{{ asset('chart.js/chart.js')}}"></script>
-        <canvas id="myChart" width="500" height="200"></canvas>
+        <canvas id="myChart" width="50%" height="25%"></canvas>
         <script>
           var ctx = document.getElementById('myChart').getContext('2d');
           var timestamps = {!! json_encode($times) !!};

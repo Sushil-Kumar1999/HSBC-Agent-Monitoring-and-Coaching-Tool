@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="{{asset('css/splitviewdashboard.css') }}">
 <div id="Progress" class="tabcontent">
   <section class="container">
   <div id="col-1">

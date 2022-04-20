@@ -1,15 +1,24 @@
 @extends('layouts.navigationbar')
 <html>
+
 @section('content')
+
+<link rel="stylesheet" href="{{asset('css/splitviewdashboard.css') }}">
+<link rel="stylesheet" href="{{asset('css/rewardviewer.css') }}">
 @php
 use App\Models\User;
+if(session('page')){
+$page=session('page');
+}else{
+$page="statisticsTab";
+}
 @endphp
 <body>
  <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'Statistics')" id="defaultOpen">Statistics</button>
-  <button class="tablinks" onclick="openTab(event, 'Progress')">Progress</button>
-  <button class="tablinks" onclick="openTab(event, 'Rewards')">Rewards</button>
-  <button class="tablinks" onclick="openTab(event, 'SkillBuilder')">Skill Builder</button>
+  <button class="tablinks" onclick="openTab(event, 'Statistics')" id="statisticsTab">Statistics</button>
+  <button class="tablinks" onclick="openTab(event, 'Progress')" id="progressTab">Progress</button>
+  <button class="tablinks" onclick="openTab(event, 'Rewards')" id="rewardsTab">Rewards</button>
+  <button class="tablinks" onclick="openTab(event, 'SkillBuilder')" id="skillbuilderTab">Skill Builder</button>
  </div>
 
  @include('hsbc.agentdashboard.statistics')
@@ -18,7 +27,7 @@ use App\Models\User;
  @include('hsbc.agentdashboard.skillbuilder')
 
  <script>
-  document.getElementById("defaultOpen").click();
+  document.getElementById("{!!$page!!}").click();
   function openTab(evt, tabName) {
     var i, tabcontent, tablinks;  
     tabcontent = document.getElementsByClassName("tabcontent");

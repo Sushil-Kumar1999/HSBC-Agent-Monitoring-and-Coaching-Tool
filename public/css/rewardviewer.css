@@ -1,0 +1,34 @@
+.reward{
+ position: relative;
+ text-align: left;
+ color: black;
+ background-color: white ;
+ overflow:auto; 
+ border: 2px solid #636363;
+ box-shadow: 3px 3px 15px black;
+ padding: 8px 8px 8px 8px;
+}
+.reward .expandbutton{
+ float:right;
+}
+.reward .content{
+ float:left;
+ font-size: 16px;
+ width: 100%-40;
+}
+
+.reward .content .title{
+ font-size: 20px;
+ font-weight: bold;
+}
+
+.viewer{
+ height: 400;
+ position: relative;
+ text-align: left;
+ color: black;
+ background-color: white ;
+ overflow:auto; 
+ border: 2px solid #636363;
+ box-shadow: 3px 3px 15px black;
+}

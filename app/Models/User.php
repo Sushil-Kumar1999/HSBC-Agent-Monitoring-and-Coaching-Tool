@@ -81,6 +81,9 @@ class User extends Authenticatable
         return $this->hasMany(Reward::class,'id','supervisor_id');
     }
     
+    public function score(){
+        
+    }
 
     /**
      * The attributes that should be cast.

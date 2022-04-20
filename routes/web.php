@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AgentDashboardController;
+use App\Http\Controllers\RewardsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,5 +25,7 @@ Route::get('/agentdashboard',[AgentDashboardController::class,'show'])->middlewa
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::put('reward/redeem/{reward}',[RewardsController::class,'redeem'])->middleware(['auth','ensureuserisagent','verifyrewardredeem'])->name('reward.redeem');
 
 require __DIR__.'/auth.php';

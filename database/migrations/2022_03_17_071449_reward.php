@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('supervisor_id');
             $table->string('type',32);
             $table->string('title',256);
-            $table->string('content',1024);
+            $table->string('content',4096);
             $table->boolean('redeemed');
             $table->timestamps();
             $table->foreign('supervisor_id')->references('id')->on('users')
