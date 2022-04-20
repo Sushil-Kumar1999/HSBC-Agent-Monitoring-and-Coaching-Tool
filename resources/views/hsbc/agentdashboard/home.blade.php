@@ -7,10 +7,11 @@
 <link rel="stylesheet" href="{{asset('css/rewardviewer.css') }}">
 @php
 use App\Models\User;
+use App\Models\Team;
 if(session('page')){
-$page=session('page');
+  $page=session('page');
 }else{
-$page="statisticsTab";
+  $page="statisticsTab";
 }
 @endphp
 <body>

@@ -81,8 +81,12 @@ class User extends Authenticatable
         return $this->hasMany(Reward::class,'id','supervisor_id');
     }
     
+    /**
+     * returns the score for the user
+     */
     public function score(){
-        
+        $metrics = $this->metrics()->first();
+        return round(($metrics->ccpoh/.30)+($metrics->art/.30) +$metrics->nps+$metrics->fcr+$metrics->online_percentage,1);
     }
 
     /**

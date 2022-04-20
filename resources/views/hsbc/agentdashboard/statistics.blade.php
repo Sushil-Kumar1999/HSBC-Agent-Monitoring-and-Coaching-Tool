@@ -41,9 +41,9 @@
     <h1>Personal Progress</h1>
     <ul>
       <script src="{{ asset('chart.js/chart.js')}}"></script>
-        <canvas id="myChart" width="50%" height="25%"></canvas>
+        <canvas id="myProgress" width="50%" height="25%"></canvas>
         <script>
-          var ctx = document.getElementById('myChart').getContext('2d');
+          var ctx = document.getElementById('myProgress').getContext('2d');
           var timestamps = {!! json_encode($times) !!};
           var ccpoh = {!! json_encode($metrics->pluck('ccpoh')->all()) !!};
           var art = {!! json_encode($metrics->pluck('art')->all()) !!};

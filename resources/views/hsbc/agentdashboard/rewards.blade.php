@@ -9,7 +9,7 @@
     <div class = "reward">
         @foreach($rewards as $reward)
         @php
-        $supervisor = $reward->supervisor()->get()[0];
+        $supervisor = $reward->supervisor()->first();
         @endphp
           <div class = "content"><div class= "title">{{$reward->title}}{{$reward->redeemed?" (redeemed)":""}}</div><br>Given by {{$supervisor->name}} ({{$supervisor->id}})</div>
           <div class = "expandbutton"><input type="image" src="{{ asset('img/expand.png') }}" height="60px" width="60px" onClick=
