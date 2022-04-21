@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function apiIndex(Request $request)
     {
-        $query = User::query()->with('metrics');
+        $query = User::query()->with('metrics')->orderBy('name', 'ASC');
         $role = $request->input('role');
         $page = $request->input('page');
 
