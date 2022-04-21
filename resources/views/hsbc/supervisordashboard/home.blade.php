@@ -17,7 +17,8 @@
         <div class="left-pane">
 
             @php
-                $agents = Auth::user()->team->members->toQuery()
+                $supervisor = Auth::user();
+                $agents = $supervisor->team->members->toQuery()
                          ->with('metrics')->with('rewards')->where('role', 'Agent')->get();
             @endphp
             <table style="width: 100%">
@@ -46,10 +47,13 @@
                 </tbody>
             </table>
 
+            <p id="agent-selected-message">No agent selected</p>
+
             <div class="button-container">
                 <button onclick="onViewMetricsClicked()">View Metrics</button>
                 <button v-on:click="onViewRewardsClicked()">View Rewards</button>
                 <button v-on:click="onViewSkillbuildersClicked()">View Skill Builders</button>
+                <button v-on:click="onSendRewardClicked()">Send Reward</button>
             </div>
         </div>
     </div>
@@ -80,6 +84,24 @@
                     <div>@{{ skillbuilder.content }}</div>
                     <div>@{{ skillbuilder.redeemed  ? 'Skill builder completed' : 'Skill builder not completed' }}</div>
                 </div>
+            </div>
+
+            @if(Session::has('reward created'))
+            <p class="inline flex px-3 py-2 mb-6 mx-2 bg-green-100 text-green-600 rounded-xl">{{ Session::get('reward created') }}</p>
+            @endif
+
+            <div id="create-reward-form" class="form-flex" style="display: none">
+                <label for="reward-title">Reward Title</label>
+                <input id="reward-title" type="text" name="title"></input>
+
+                <label for="reward-content">Reward Content:</label>
+                <textarea id="reward-content" rows="5" name="content"></textarea>
+
+                <div class="submit-button-container">
+                    <button v-on:click="onCreateRewardClicked()">Create Reward</button>
+                </div>
+
+                <p id="reward-success-message" style="color: green; display: none"></p>
             </div>
 
         </div>
@@ -113,17 +135,49 @@
                     console.log(error);
                 });
             },
+            createReward: function(reward) {
+                axios.post('/rewards', reward)
+                .then(response => {
+                    console.log(response);
+                    document.getElementById('reward-success-message').style.display = "block";
+                    document.getElementById('reward-success-message').textContent = response.data;
+                    document.getElementById("reward-title").value = '';
+                    document.getElementById("reward-content").value = '';
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            },
             onViewRewardsClicked: function() {
                 hideAll();
                 document.getElementById('rewards-list').style.display = "block";
-                document.getElementById('right-pane-title').textContent = `Viewing rewards for ${selectedAgent.name} (Agent ${selectedAgent.id})`;
+                document.getElementById('right-pane-title').textContent = `Viewing rewards for ${selectedAgent.name} (PSID ${selectedAgent.id})`;
                 this.getRewards();
             },
             onViewSkillbuildersClicked: function() {
                 hideAll();
                 document.getElementById('skillbuilders-list').style.display = "block";
-                document.getElementById('right-pane-title').textContent = `Viewing skill builders for ${selectedAgent.name} (Agent ${selectedAgent.id})`;
+                document.getElementById('right-pane-title').textContent = `Viewing skill builders for ${selectedAgent.name} (PSID ${selectedAgent.id})`;
                 this.getSkillbuilders();
+            },
+            onSendRewardClicked: function() {;
+                hideAll();
+                document.getElementById('create-reward-form').style.display = "flex";
+                document.getElementById('right-pane-title').textContent = `Creating reward for ${selectedAgent.name} (PSID ${selectedAgent.id})`;
+            },
+            onCreateRewardClicked: function() {
+                var title = document.getElementById("reward-title").value;
+                var content = document.getElementById("reward-content").value;
+
+                var reward = {
+                    title: title,
+                    content: content,
+                    type: 'reward',
+                    agentId: selectedAgent.id,
+                    supervisorId: supervisor.id
+                };
+                console.log(reward);
+                this.createReward(reward);
             }
         }
     });
@@ -132,6 +186,7 @@
 @endsection
 
 <script>
+    var supervisor = {{ Js::from($supervisor) }}
     var agents = {{ Js::from($agents) }};
     var selectedAgent;
 
@@ -140,10 +195,13 @@
         document.getElementById('metrics-list').style.display = "none";
         document.getElementById('rewards-list').style.display = "none";
         document.getElementById('skillbuilders-list').style.display = "none";
+        document.getElementById('create-reward-form').style.display = "none";
+        document.getElementById('reward-success-message').style.display = "none";
     }
 
     function onAgentClicked(id) {
        selectedAgent = agents.find(ag => ag.id == id);
+       document.getElementById('agent-selected-message').textContent = `Agent ${selectedAgent.name} (PSID ${selectedAgent.id}) selected`;
     }
 
     function onViewMetricsClicked() {
@@ -151,19 +209,12 @@
         document.getElementById('metrics-list').style.display = "block";
 
         var metric = selectedAgent.metrics[selectedAgent.metrics.length - 1];
-        document.getElementById('right-pane-title').textContent = `Viewing metrics for ${selectedAgent.name} (Agent ${selectedAgent.id})`;
+        document.getElementById('right-pane-title').textContent = `Viewing metrics for ${selectedAgent.name} (PSID ${selectedAgent.id})`;
         document.getElementById('ccpoh').textContent = `CCPOH: ${metric.ccpoh}`;
         document.getElementById('art').textContent = `ART: ${metric.art}`;
         document.getElementById('nps').textContent = `NPS: ${metric.nps}`;
         document.getElementById('fcr').textContent = `FCR: ${metric.fcr}`;
         document.getElementById('online_percentage').textContent = `Online Percentage: ${metric.online_percentage}`;
     }
-
-    // function onViewRewardsClicked() {
-    //     hideAll();
-    //     document.getElementById('rewards-list').style.display = "block";
-    //     document.getElementById('right-pane-title').textContent = `Viewing rewards for ${selectedAgent.name} (Agent ${selectedAgent.id})`;
-    // }
-
 
 </script>

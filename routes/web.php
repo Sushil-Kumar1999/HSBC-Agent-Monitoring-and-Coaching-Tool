@@ -34,3 +34,5 @@ require __DIR__.'/auth.php';
 Route::get('/supervisordashboard', [SupervisorDashboardController::class, 'show'])
         ->middleware(['auth'])
         ->name('supervisordashboard.show');
+
+Route::post('/rewards', [RewardsController::class, 'store'])->middleware(['auth'])->name('reward.store');

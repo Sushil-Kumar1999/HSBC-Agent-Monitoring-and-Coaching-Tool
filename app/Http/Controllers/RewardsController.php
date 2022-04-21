@@ -40,4 +40,23 @@ class RewardsController extends Controller
 
         return $query->get();
     }
+
+
+    public function store(Request $request)
+    {
+        $reward = new Reward();
+        $reward->psid = $request->input('agentId');
+        $reward->supervisor_id = $request->input('supervisorId');
+        $reward->type = $request->input('type');
+        $reward->title = $request->input('title');
+        $reward->content = $request->input('content');
+        $reward->redeemed = false;
+        $reward->save();
+
+        $resource = $request->input('type') == "reward" ? "Reward" : "Skill builder";
+
+        session()->flash('reward created', $resource . " created successfully");
+
+        return response($resource . " created successfully", 201);
+    }
 }

@@ -34,6 +34,7 @@
     background-color: green;
     color: white;
 }
+
 .button-container {
     margin-top: 20px;
 }
@@ -49,5 +50,17 @@
     padding: 8px 8px 8px 8px;
     margin-top: 8px;
     margin-bottom: 8px;
+}
+
+.form-flex {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.submit-button-container {
+    display: inline-flex;
+    justify-content: start;
+    margin-top: 5px;
 }
 
