@@ -32,7 +32,7 @@ Route::put('reward/redeem/{reward}',[RewardsController::class,'redeem'])->middle
 require __DIR__.'/auth.php';
 
 Route::get('/supervisordashboard', [SupervisorDashboardController::class, 'show'])
-        ->middleware(['auth'])
+        ->middleware(['auth', 'supervisor'])
         ->name('supervisordashboard.show');
 
 Route::post('/rewards', [RewardsController::class, 'store'])->middleware(['auth'])->name('reward.store');
