@@ -37,6 +37,10 @@
 
 .button-container {
     margin-top: 20px;
+    display: flex;
+    row-gap: 10px;
+    flex-flow: wrap;
+    column-gap: 10px;
 }
 
 .reward-item {

@@ -6,7 +6,6 @@
 @section('content')
 
 <link rel="stylesheet" href="{{asset('css/splitviewdashboard.css') }}">
-{{-- <link rel="stylesheet" href="{{asset('css/rewardviewer.css') }}"> --}}
 <link rel="stylesheet" href="{{asset('css/supervisordashboard.css') }}">
 
 <section id="root" class="container hsbc-red">
@@ -53,7 +52,7 @@
                 <button onclick="onViewMetricsClicked()">View Metrics</button>
                 <button v-on:click="onViewRewardsClicked()">View Rewards</button>
                 <button v-on:click="onViewSkillbuildersClicked()">View Skill Builders</button>
-                <button v-on:click="onSendRewardClicked()">Assign Reward</button>
+                <button v-on:click="onAssignRewardClicked()">Assign Reward</button>
                 <button v-on:click="onAssignSkillBuilderClicked()">Assign Skill Builder</button>
             </div>
         </div>
@@ -184,7 +183,7 @@
                 document.getElementById('right-pane-title').textContent = `Viewing skill builders for ${selectedAgent.name} (PSID ${selectedAgent.id})`;
                 this.getSkillbuilders();
             },
-            onSendRewardClicked: function() {
+            onAssignRewardClicked: function() {
                 hideAll();
                 document.getElementById('create-reward-form').style.display = "flex";
                 document.getElementById('right-pane-title').textContent = `Creating reward for ${selectedAgent.name} (PSID ${selectedAgent.id})`;
