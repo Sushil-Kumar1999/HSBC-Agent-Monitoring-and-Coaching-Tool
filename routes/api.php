@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RewardsController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/rewards', [RewardsController::class, 'apiIndex'])->name('api.rewards.index');
+
+Route::get('/users', [UserController::class, 'apiIndex'])->name('api.users.index');

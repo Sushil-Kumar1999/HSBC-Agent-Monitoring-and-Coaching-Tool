@@ -11,16 +11,10 @@
 <section id="root" class="container hsbc-red">
 
     <div id="col-1">
-        <h1 style="font-size: medium;">Agents in Team {{$user->team->name}}</h1>
+        <h1 style="font-size: medium;">Agents List</h1>
 
         <div class="left-pane">
-
-            @php
-                $supervisor = Auth::user();
-                $agents = $supervisor->team->members->toQuery()
-                         ->with('metrics')->with('rewards')->where('role', 'Agent')->get();
-            @endphp
-            <table style="width: 100%">
+            <table v-if="agents.length!=0" style="width: 100%;">
                 <thead>
                     <tr class="table-row">
                         <th>PSID</th>
@@ -29,27 +23,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($agents as $agent)
-                    @php
-                        $qualifier = $agent->metrics->toQuery()->orderBy('created_at', 'DESC')->first()->qualifier;
-                    @endphp
-                    <tr @class(['table-row',
-                                'agent-bg-red' => $qualifier == "Low",
-                                'agent-bg-amber' => $qualifier == "Medium",
-                                'agent-bg-green' => $qualifier == "Good"])
-                        onclick="onAgentClicked({!! $agent->id !!})">
-                        <td>{{ $agent->id }}</td>
-                        <td>{{ $agent->name }}</td>
-                        <td>{{ $qualifier }}</td>
+                    <tr v-for="agent in agents" class="table-row" :class="getAgentColors(getLatestMetric(agent.metrics))"
+                        v-on:click="onAgentClicked(agent.id)">
+                        <td>@{{ agent.id }}</td>
+                        <td>@{{ agent.name }}</td>
+                        <td>@{{ getLatestMetric(agent.metrics).qualifier }}</td>
                     </tr>
-                    @endforeach
                 </tbody>
             </table>
+
+            <div class="pagination-container">
+                <span v-on:click="getPrevPage()"> << Prev </span>
+                <span id="page">Page @{{ page }}</span>
+                <span v-on:click="getNextPage()"> Next >> </span>
+            </div>
 
             <p id="agent-selected-message">No agent selected</p>
 
             <div class="button-container">
-                <button onclick="onViewMetricsClicked()">View Metrics</button>
+                <button v-on:click="onViewMetricsClicked()">View Metrics</button>
                 <button v-on:click="onViewRewardsClicked()">View Rewards</button>
                 <button v-on:click="onViewSkillbuildersClicked()">View Skill Builders</button>
                 <button v-on:click="onAssignRewardClicked()">Assign Reward</button>
@@ -123,10 +115,42 @@
     var app = new Vue({
         el: "#root",
         data: {
+            page: 1,
+            agents: [],
             rewards: [],
             skillbuilders: [],
         },
+        mounted() {
+            this.getAgents();
+        },
         methods: {
+            getLatestMetric: function(metrics) {
+                return metrics.reduce((a, b) => a.created_at > b.created_at ? a: b);
+            },
+            getAgentColors: function(metric) {
+                return { 'agent-bg-red': metric.qualifier == "Low",
+                         'agent-bg-amber': metric.qualifier == "Medium",
+                         'agent-bg-green': metric.qualifier == "Good"
+                }
+            },
+            getPrevPage: function() {
+                if (this.page <= 0) return;
+                this.page -= 1;
+                this.getAgents();
+            },
+            getNextPage: function() {
+                this.page += 1;
+                this.getAgents();
+            },
+            getAgents: function() {
+                axios.get(`/api/users?role=Agent&page=${this.page}`)
+                .then(response => {
+                    this.agents = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            },
             getRewards: function() {
                 axios.get(`/api/rewards?agentId=${selectedAgent.id}&type=reward`)
                 .then(response => {
@@ -170,6 +194,18 @@
                 .catch(error => {
                     console.log(error);
                 });
+            },
+            onViewMetricsClicked: function() {
+                hideAll();
+                document.getElementById('metrics-list').style.display = "block";
+
+                var metric = selectedAgent.metrics[selectedAgent.metrics.length - 1];
+                document.getElementById('right-pane-title').textContent = `Viewing metrics for ${selectedAgent.name} (PSID ${selectedAgent.id})`;
+                document.getElementById('ccpoh').textContent = `CCPOH: ${metric.ccpoh}`;
+                document.getElementById('art').textContent = `ART: ${metric.art}`;
+                document.getElementById('nps').textContent = `NPS: ${metric.nps}`;
+                document.getElementById('fcr').textContent = `FCR: ${metric.fcr}`;
+                document.getElementById('online_percentage').textContent = `Online Percentage: ${metric.online_percentage}`;
             },
             onViewRewardsClicked: function() {
                 hideAll();
@@ -218,6 +254,10 @@
                     supervisorId: supervisor.id
                 };
                 this.createSkillBuilder(skillbuilder);
+            },
+            onAgentClicked: function(id) {
+                selectedAgent = this.agents.find(ag => ag.id == id);
+                document.getElementById('agent-selected-message').textContent = `Agent ${selectedAgent.name} (PSID ${selectedAgent.id}) selected`;
             }
         }
     });
@@ -227,7 +267,6 @@
 
 <script>
     var supervisor = {{ Js::from($supervisor) }}
-    var agents = {{ Js::from($agents) }};
     var selectedAgent;
 
     function hideAll()
@@ -239,24 +278,6 @@
         document.getElementById('create-skillbuilder-form').style.display = "none";
         document.getElementById('reward-success-message').style.display = "none";
         document.getElementById('skillbuilder-success-message').style.display = "none";
-    }
-
-    function onAgentClicked(id) {
-       selectedAgent = agents.find(ag => ag.id == id);
-       document.getElementById('agent-selected-message').textContent = `Agent ${selectedAgent.name} (PSID ${selectedAgent.id}) selected`;
-    }
-
-    function onViewMetricsClicked() {
-        hideAll();
-        document.getElementById('metrics-list').style.display = "block";
-
-        var metric = selectedAgent.metrics[selectedAgent.metrics.length - 1];
-        document.getElementById('right-pane-title').textContent = `Viewing metrics for ${selectedAgent.name} (PSID ${selectedAgent.id})`;
-        document.getElementById('ccpoh').textContent = `CCPOH: ${metric.ccpoh}`;
-        document.getElementById('art').textContent = `ART: ${metric.art}`;
-        document.getElementById('nps').textContent = `NPS: ${metric.nps}`;
-        document.getElementById('fcr').textContent = `FCR: ${metric.fcr}`;
-        document.getElementById('online_percentage').textContent = `Online Percentage: ${metric.online_percentage}`;
     }
 
 </script>

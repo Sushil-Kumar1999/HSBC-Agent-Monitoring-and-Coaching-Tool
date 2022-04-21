@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+use App\Models\User;
 
 class SupervisorDashboardController extends Controller
 {
     public function show()
     {
-        $user= Auth::user();
-        return view('hsbc/supervisordashboard/home',['user'=>$user]);
+        $supervisor = Auth::user();
+        return view('hsbc/supervisordashboard/home', ['supervisor' => $supervisor]);
     }
 }
