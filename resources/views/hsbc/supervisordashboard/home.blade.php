@@ -86,10 +86,6 @@
                 </div>
             </div>
 
-            @if(Session::has('reward created'))
-            <p class="inline flex px-3 py-2 mb-6 mx-2 bg-green-100 text-green-600 rounded-xl">{{ Session::get('reward created') }}</p>
-            @endif
-
             <div id="create-reward-form" class="form-flex" style="display: none">
                 <label for="reward-title">Reward Title</label>
                 <input id="reward-title" type="text" name="title"></input>

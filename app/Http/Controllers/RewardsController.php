@@ -55,8 +55,6 @@ class RewardsController extends Controller
 
         $resource = $request->input('type') == "reward" ? "Reward" : "Skill builder";
 
-        session()->flash('reward created', $resource . " created successfully");
-
         return response($resource . " created successfully", 201);
     }
 }
