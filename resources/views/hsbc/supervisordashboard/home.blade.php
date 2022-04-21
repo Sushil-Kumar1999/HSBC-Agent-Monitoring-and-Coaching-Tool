@@ -46,6 +46,7 @@
                 <button v-on:click="onViewSkillbuildersClicked()">View Skill Builders</button>
                 <button v-on:click="onAssignRewardClicked()">Assign Reward</button>
                 <button v-on:click="onAssignSkillBuilderClicked()">Assign Skill Builder</button>
+                <button v-on:click="onViewTeamClicked()">View Team</button>
             </div>
         </div>
     </div>
@@ -106,6 +107,11 @@
                 <p id="skillbuilder-success-message" style="color: green; display: none"></p>
             </div>
 
+            <div id="view-team" style="display: none">
+                <span id="team-message"></span>
+
+            </div>
+
         </div>
     </div>
 
@@ -117,6 +123,7 @@
         data: {
             page: 1,
             agents: [],
+            selectedAgent: null,
             rewards: [],
             skillbuilders: [],
         },
@@ -134,7 +141,7 @@
                 }
             },
             getPrevPage: function() {
-                if (this.page <= 0) return;
+                if (this.page <= 1) return;
                 this.page -= 1;
                 this.getAgents();
             },
@@ -152,7 +159,7 @@
                 });
             },
             getRewards: function() {
-                axios.get(`/api/rewards?agentId=${selectedAgent.id}&type=reward`)
+                axios.get(`/api/rewards?agentId=${this.selectedAgent.id}&type=reward`)
                 .then(response => {
                     this.rewards = response.data;
                 })
@@ -161,7 +168,7 @@
                 });
             },
             getSkillbuilders: function() {
-                axios.get(`/api/rewards?agentId=${selectedAgent.id}&type=skillbuilder`)
+                axios.get(`/api/rewards?agentId=${this.selectedAgent.id}&type=skillbuilder`)
                 .then(response => {
                     this.skillbuilders = response.data;
                 })
@@ -199,8 +206,8 @@
                 hideAll();
                 document.getElementById('metrics-list').style.display = "block";
 
-                var metric = selectedAgent.metrics[selectedAgent.metrics.length - 1];
-                document.getElementById('right-pane-title').textContent = `Viewing metrics for ${selectedAgent.name} (PSID ${selectedAgent.id})`;
+                var metric = this.selectedAgent.metrics[this.selectedAgent.metrics.length - 1];
+                document.getElementById('right-pane-title').textContent = `Viewing metrics for ${this.selectedAgent.name} (PSID ${this.selectedAgent.id})`;
                 document.getElementById('ccpoh').textContent = `CCPOH: ${metric.ccpoh}`;
                 document.getElementById('art').textContent = `ART: ${metric.art}`;
                 document.getElementById('nps').textContent = `NPS: ${metric.nps}`;
@@ -210,24 +217,32 @@
             onViewRewardsClicked: function() {
                 hideAll();
                 document.getElementById('rewards-list').style.display = "block";
-                document.getElementById('right-pane-title').textContent = `Viewing rewards for ${selectedAgent.name} (PSID ${selectedAgent.id})`;
+                document.getElementById('right-pane-title').textContent = `Viewing rewards for ${this.selectedAgent.name} (PSID ${this.selectedAgent.id})`;
                 this.getRewards();
             },
             onViewSkillbuildersClicked: function() {
                 hideAll();
                 document.getElementById('skillbuilders-list').style.display = "block";
-                document.getElementById('right-pane-title').textContent = `Viewing skill builders for ${selectedAgent.name} (PSID ${selectedAgent.id})`;
+                document.getElementById('right-pane-title').textContent = `Viewing skill builders for ${this.selectedAgent.name} (PSID ${this.selectedAgent.id})`;
                 this.getSkillbuilders();
             },
             onAssignRewardClicked: function() {
                 hideAll();
                 document.getElementById('create-reward-form').style.display = "flex";
-                document.getElementById('right-pane-title').textContent = `Creating reward for ${selectedAgent.name} (PSID ${selectedAgent.id})`;
+                document.getElementById('right-pane-title').textContent = `Creating reward for ${this.selectedAgent.name} (PSID ${this.selectedAgent.id})`;
             },
             onAssignSkillBuilderClicked: function() {
                 hideAll();
                 document.getElementById('create-skillbuilder-form').style.display = "flex";
-                document.getElementById('right-pane-title').textContent = `Creating skill builder for ${selectedAgent.name} (PSID ${selectedAgent.id})`;
+                document.getElementById('right-pane-title').textContent = `Creating skill builder for ${this.selectedAgent.name} (PSID ${this.selectedAgent.id})`;
+            },
+            onViewTeamClicked: function() {
+                hideAll();
+                document.getElementById('view-team').style.display = "block";
+                document.getElementById('right-pane-title').textContent = `Viewing team for ${this.selectedAgent.name} (PSID ${this.selectedAgent.id})`;
+                document.getElementById('team-message').textContent = this.selectedAgent.team != null ?
+                    `${this.selectedAgent.name} is assigned to Team ${this.selectedAgent.team.name}` :
+                     `${this.selectedAgent.name} is not assigned to any team`;
             },
             onCreateRewardClicked: function() {
                 var title = document.getElementById("reward-title").value;
@@ -237,7 +252,7 @@
                     title: title,
                     content: content,
                     type: 'reward',
-                    agentId: selectedAgent.id,
+                    agentId: this.selectedAgent.id,
                     supervisorId: supervisor.id
                 };
                 this.createReward(reward);
@@ -250,14 +265,14 @@
                     title: title,
                     content: content,
                     type: 'skillbuilder',
-                    agentId: selectedAgent.id,
+                    agentId: this.selectedAgent.id,
                     supervisorId: supervisor.id
                 };
                 this.createSkillBuilder(skillbuilder);
             },
             onAgentClicked: function(id) {
-                selectedAgent = this.agents.find(ag => ag.id == id);
-                document.getElementById('agent-selected-message').textContent = `Agent ${selectedAgent.name} (PSID ${selectedAgent.id}) selected`;
+                this.selectedAgent = this.agents.find(ag => ag.id == id);
+                document.getElementById('agent-selected-message').textContent = `Agent ${this.selectedAgent.name} (PSID ${this.selectedAgent.id}) selected`;
             }
         }
     });
@@ -267,10 +282,8 @@
 
 <script>
     var supervisor = {{ Js::from($supervisor) }}
-    var selectedAgent;
 
-    function hideAll()
-    {
+    function hideAll() {
         document.getElementById('metrics-list').style.display = "none";
         document.getElementById('rewards-list').style.display = "none";
         document.getElementById('skillbuilders-list').style.display = "none";
@@ -278,6 +291,6 @@
         document.getElementById('create-skillbuilder-form').style.display = "none";
         document.getElementById('reward-success-message').style.display = "none";
         document.getElementById('skillbuilder-success-message').style.display = "none";
+        document.getElementById('view-team').style.display = "none";
     }
-
 </script>
