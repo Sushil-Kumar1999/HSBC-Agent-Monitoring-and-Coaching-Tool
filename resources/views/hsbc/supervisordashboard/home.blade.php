@@ -53,7 +53,8 @@
                 <button onclick="onViewMetricsClicked()">View Metrics</button>
                 <button v-on:click="onViewRewardsClicked()">View Rewards</button>
                 <button v-on:click="onViewSkillbuildersClicked()">View Skill Builders</button>
-                <button v-on:click="onSendRewardClicked()">Send Reward</button>
+                <button v-on:click="onSendRewardClicked()">Assign Reward</button>
+                <button v-on:click="onAssignSkillBuilderClicked()">Assign Skill Builder</button>
             </div>
         </div>
     </div>
@@ -100,6 +101,20 @@
                 <p id="reward-success-message" style="color: green; display: none"></p>
             </div>
 
+            <div id="create-skillbuilder-form" class="form-flex" style="display: none">
+                <label for="skillbuilder-title">Skill Builder Title</label>
+                <input id="skillbuilder-title" type="text" name="title"></input>
+
+                <label for="skillbuilder-content">Skill Builder Content:</label>
+                <textarea id="skillbuilder-content" rows="5" name="content"></textarea>
+
+                <div class="submit-button-container">
+                    <button v-on:click="onCreateSkillBuilderClicked()">Create Skill Builder</button>
+                </div>
+
+                <p id="skillbuilder-success-message" style="color: green; display: none"></p>
+            </div>
+
         </div>
     </div>
 
@@ -144,6 +159,19 @@
                     console.log(error);
                 });
             },
+            createSkillBuilder: function(skillbuilder) {
+                axios.post('/rewards', skillbuilder)
+                .then(response => {
+                    console.log(response);
+                    document.getElementById('skillbuilder-success-message').style.display = "block";
+                    document.getElementById('skillbuilder-success-message').textContent = response.data;
+                    document.getElementById("skillbuilder-title").value = '';
+                    document.getElementById("skillbuilder-content").value = '';
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            },
             onViewRewardsClicked: function() {
                 hideAll();
                 document.getElementById('rewards-list').style.display = "block";
@@ -156,10 +184,15 @@
                 document.getElementById('right-pane-title').textContent = `Viewing skill builders for ${selectedAgent.name} (PSID ${selectedAgent.id})`;
                 this.getSkillbuilders();
             },
-            onSendRewardClicked: function() {;
+            onSendRewardClicked: function() {
                 hideAll();
                 document.getElementById('create-reward-form').style.display = "flex";
                 document.getElementById('right-pane-title').textContent = `Creating reward for ${selectedAgent.name} (PSID ${selectedAgent.id})`;
+            },
+            onAssignSkillBuilderClicked: function() {
+                hideAll();
+                document.getElementById('create-skillbuilder-form').style.display = "flex";
+                document.getElementById('right-pane-title').textContent = `Creating skill builder for ${selectedAgent.name} (PSID ${selectedAgent.id})`;
             },
             onCreateRewardClicked: function() {
                 var title = document.getElementById("reward-title").value;
@@ -172,8 +205,20 @@
                     agentId: selectedAgent.id,
                     supervisorId: supervisor.id
                 };
-                console.log(reward);
                 this.createReward(reward);
+            },
+            onCreateSkillBuilderClicked: function() {
+                var title = document.getElementById("skillbuilder-title").value;
+                var content = document.getElementById("skillbuilder-content").value;
+
+                var skillbuilder = {
+                    title: title,
+                    content: content,
+                    type: 'skillbuilder',
+                    agentId: selectedAgent.id,
+                    supervisorId: supervisor.id
+                };
+                this.createSkillBuilder(skillbuilder);
             }
         }
     });
@@ -192,7 +237,9 @@
         document.getElementById('rewards-list').style.display = "none";
         document.getElementById('skillbuilders-list').style.display = "none";
         document.getElementById('create-reward-form').style.display = "none";
+        document.getElementById('create-skillbuilder-form').style.display = "none";
         document.getElementById('reward-success-message').style.display = "none";
+        document.getElementById('skillbuilder-success-message').style.display = "none";
     }
 
     function onAgentClicked(id) {
