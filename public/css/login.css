@@ -1,0 +1,33 @@
+body {
+    background-color: rgba(255, 255, 255, 0.644);
+}
+
+
+#img {
+    margin-top: 9em;
+    margin-left: 0em;
+}
+
+
+#pd {
+    margin-top: 1em;
+   
+}
+
+
+#nav {
+    background-color: black
+}
+
+#navText {
+    font-size: medium;
+}
+
+#title {
+    font-size: large;
+}
+
+#button {
+    background-color: rgba(3, 3, 3, 0.836);
+    width: 170px;
+}

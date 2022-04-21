@@ -23,14 +23,17 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/login.css') }}">
 </head>
 
-<body>
-    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark shadow-sm">
+<body class="font-sans antialiased">
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark shadow-sm" id="nav">
         <div class="container-fluid">
-            <a class="navbar navbar-brand" href="{{ url('/') }}">
+            <img src="img/hsbc.png" style="width: 50px; height: 50px">
+            <a id="navText"class="navbar navbar-brand" href="{{ url('/') }}">
                 HSBC Agent Monitoring and Coaching Tool
             </a>
+                                    
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -42,15 +45,10 @@
                     @guest
                         @if (Route::has('login'))
                             <li class="nav-item ">
-                                <a class="nav-link active" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link active" id="navText" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                         @endif
                         
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
                     @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -75,10 +73,10 @@
         </div>
     </nav>
 
-    <div class=" container-fluid col-lg-12 bg-danger text-white mb-5 mt-5">
+    <div class=" container-fluid col-lg-12 text-black mb-5 mt-5">
         <div class="row justify-content-between mt-5 mb-5 ">
             <div class="col-4 fluid-center mx-5 my-5 ">
-                <h1 class="fs-1 mb=5">Web Agent Monitoring and Coaching Tool</h1>
+                <h1 id="pd" class="fs-1 mb=5">Web Agent Monitoring and Coaching Tool</h1>
 
                 <!-- Session Status -->
                 <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -112,7 +110,7 @@
                 </div>
 
                 <div class="d-flex justify-content-between d-grid gap-2">
-                    <div class="mt-5 mr-auto p-2 justify-content-md-start">
+                    <div class="mt-5 mr-auto justify-content-md-start">
                         @if (Route::has('password.request'))
                             <a class="link-dark" href="{{ route('password.request') }}">
                                 {{ __('Forgot your password?') }}
@@ -120,8 +118,8 @@
                         @endif
                     </div>
 
-                    <div class="mt-5 mr-auto p-2 justify-content-md-end">
-                        <x-button class="ml-6 btn btn-dark">
+                    <div class="mt-5 justify-content-md-end">
+                        <x-button class="ml-5 btn border-0 btn-dark" id="button">
                             {{ __('Log in') }}
                         </x-button>
                     </div>
@@ -129,8 +127,8 @@
 
             </div>
         
-            <div class="col-4 fluid-center mx-5 my-5">
-                <img src="{{ asset('img/logo.jfif') }}" class="img-fluid rounded float-center" alt="logo" width="700" height="300">
+            <div class="col-4 fluid-center mt-5 mx-5 my-5">
+                <img id="img" src="{{ asset('img/logo.jfif') }}" class="img-fluid rounded float-center" alt="logo" width="700" height="300">
         
             </div>
         </div>
