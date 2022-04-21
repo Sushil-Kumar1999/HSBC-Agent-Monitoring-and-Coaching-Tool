@@ -25,7 +25,7 @@ class RewardsController extends Controller
     public function apiIndex(Request $request)
     {
         $agentId = $request->input('agentId');
-        $type = $request->input('skillbuilder');
+        $type = $request->input('type');
         $query = Reward::query();
 
         if($agentId)
