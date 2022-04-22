@@ -109,7 +109,21 @@
 
             <div id="view-team" style="display: none">
                 <span id="team-message"></span>
+            </div>
 
+            <div id="add-to-team" style="display: none">
+                <label>Choose team: </label>
+                <select id="team-dropdown">
+                    <option v-for="team in teams" :value="team.team_id">@{{ team.name }}</option>
+                </select>
+                <button v-on:click="onAssignTeamClicked()">Assign team</button>
+                <p id="add-to-team-message" style="color: green; display: none"></p>
+            </div>
+
+            <div id="remove-from-team" style="display: none">
+                <span>Remove agent from current team</span>
+                <button v-on:click="removeAgentFromTeam()">Remove</button>
+                <p id="remove-from-team-message" style="color: green; display: none"></p>
             </div>
 
         </div>
@@ -126,6 +140,7 @@
             selectedAgent: null,
             rewards: [],
             skillbuilders: [],
+            teams: []
         },
         mounted() {
             this.getAgents();
@@ -148,6 +163,15 @@
             getNextPage: function() {
                 this.page += 1;
                 this.getAgents();
+            },
+            getTeams: function() {
+                axios.get('/api/teams')
+                .then(response => {
+                    this.teams = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
             },
             getAgents: function() {
                 axios.get(`/api/users?role=Agent&page=${this.page}`)
@@ -177,7 +201,7 @@
                 });
             },
             createReward: function(reward) {
-                axios.post('/rewards', reward)
+                axios.post('/api/rewards', reward)
                 .then(response => {
                     console.log(response);
                     document.getElementById('reward-success-message').style.display = "block";
@@ -190,7 +214,7 @@
                 });
             },
             createSkillBuilder: function(skillbuilder) {
-                axios.post('/rewards', skillbuilder)
+                axios.post('/api/rewards', skillbuilder)
                 .then(response => {
                     console.log(response);
                     document.getElementById('skillbuilder-success-message').style.display = "block";
@@ -201,6 +225,34 @@
                 .catch(error => {
                     console.log(error);
                 });
+            },
+            removeAgentFromTeam: function() {
+                axios.put(`/api/users/${this.selectedAgent.id}/removeFromTeam`)
+                .then(response => {
+                    console.log(response);
+                    document.getElementById('remove-from-team-message').style.display = "block";
+                    document.getElementById('remove-from-team-message').textContent = response.data;
+                    this.getAgents();
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            },
+            addAgentToTeam: function(teamId) {
+                axios.put(`/api/users/${this.selectedAgent.id}/addToTeam`, { teamId : teamId } )
+                .then(response => {
+                    console.log(response);
+                    document.getElementById('add-to-team-message').style.display = "block";
+                    document.getElementById('add-to-team-message').textContent = response.data;
+                    this.getAgents();
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            },
+            onAgentClicked: function(id) {
+                this.selectedAgent = this.agents.find(ag => ag.id == id);
+                document.getElementById('agent-selected-message').textContent = `Agent ${this.selectedAgent.name} (PSID ${this.selectedAgent.id}) selected`;
             },
             onViewMetricsClicked: function() {
                 hideAll();
@@ -240,9 +292,19 @@
                 hideAll();
                 document.getElementById('view-team').style.display = "block";
                 document.getElementById('right-pane-title').textContent = `Viewing team for ${this.selectedAgent.name} (PSID ${this.selectedAgent.id})`;
-                document.getElementById('team-message').textContent = this.selectedAgent.team != null ?
-                    `${this.selectedAgent.name} is assigned to Team ${this.selectedAgent.team.name}` :
-                     `${this.selectedAgent.name} is not assigned to any team`;
+
+                if (this.selectedAgent.team == null)
+                {
+                    document.getElementById('team-message').textContent = `${this.selectedAgent.name} is not assigned to any team`;
+                    document.getElementById("add-to-team").style.display = "block";
+                    this.getTeams();
+                }
+                else
+                {
+                    document.getElementById('team-message').textContent = `${this.selectedAgent.name} is assigned to Team ${this.selectedAgent.team.name}`;
+                    document.getElementById("remove-from-team").style.display = "block";
+                }
+
             },
             onCreateRewardClicked: function() {
                 var title = document.getElementById("reward-title").value;
@@ -270,9 +332,9 @@
                 };
                 this.createSkillBuilder(skillbuilder);
             },
-            onAgentClicked: function(id) {
-                this.selectedAgent = this.agents.find(ag => ag.id == id);
-                document.getElementById('agent-selected-message').textContent = `Agent ${this.selectedAgent.name} (PSID ${this.selectedAgent.id}) selected`;
+            onAssignTeamClicked: function() {
+                var teamId = document.getElementById("team-dropdown").value;
+                this.addAgentToTeam(teamId);
             }
         }
     });
@@ -292,5 +354,9 @@
         document.getElementById('reward-success-message').style.display = "none";
         document.getElementById('skillbuilder-success-message').style.display = "none";
         document.getElementById('view-team').style.display = "none";
+        document.getElementById('add-to-team').style.display = "none"
+        document.getElementById('add-to-team-message').style.display = "none"
+        document.getElementById('remove-from-team').style.display = "none"
+        document.getElementById('remove-from-team-message').style.display = "none"
     }
 </script>

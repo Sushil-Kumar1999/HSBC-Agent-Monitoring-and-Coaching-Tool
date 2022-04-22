@@ -28,4 +28,19 @@ class UserController extends Controller
         return $query->get();
     }
 
+    public function apiRemoveFromTeam(User $user)
+    {
+        $user->team_id = 0;
+        $user->save();
+
+        return response('User removed from team successfully', 200);
+    }
+
+    public function apiAddToTeam(Request $request, User $user)
+    {
+        $user->team_id = $request->input('teamId');
+        $user->save();
+
+        return response('User added to team successfully', 200);
+    }
 }
