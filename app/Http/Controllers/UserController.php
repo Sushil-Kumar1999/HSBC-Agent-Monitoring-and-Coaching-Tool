@@ -12,11 +12,17 @@ class UserController extends Controller
     {
         $query = User::query()->with('metrics')->with('team')->orderBy('name', 'ASC');
         $role = $request->input('role');
+        $teamId = $request->input('teamId');
         $page = $request->input('page');
 
         if($role)
         {
             $query->where('role', $role);
+        }
+
+        if ($teamId)
+        {
+            $query->where('team_id', $teamId);
         }
 
         if($page)

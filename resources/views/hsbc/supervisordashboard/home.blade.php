@@ -14,6 +14,12 @@
         <h1 style="font-size: medium;">Agents List</h1>
 
         <div class="left-pane">
+            <label>Choose Team: </label>
+            <select v-on:change="onTeamSelected($event)">
+                <option value="0">All</option>
+                <option v-for="team in teams" :value="team.team_id">@{{ team.name }}</option>
+            </select>
+
             <table v-if="agents.length!=0" style="width: 100%;">
                 <thead>
                     <tr class="table-row">
@@ -180,6 +186,7 @@
         },
         mounted() {
             this.getAgents();
+            this.getTeams();
         },
         methods: {
             getLatestMetric: function(agent) {
@@ -209,8 +216,10 @@
                     console.log(error);
                 });
             },
-            getAgents: function() {
-                axios.get(`/api/users?role=Agent&page=${this.page}`)
+            getAgents: function(teamId = 0) {
+                var baseUrl = `/api/users?role=Agent&page=${this.page}`;
+                var param = teamId == 0 ? '' : `&teamId=${teamId}`;
+                axios.get(baseUrl + param)
                 .then(response => {
                     this.agents = response.data;
                 })
@@ -349,7 +358,6 @@
                 {
                     document.getElementById('team-message').textContent = `${this.selectedAgent.name} is not assigned to any team`;
                     document.getElementById("add-to-team").style.display = "block";
-                    this.getTeams();
                 }
                 else
                 {
@@ -402,6 +410,9 @@
                     onlinePercentage: parseFloat(document.getElementById("update-online-percentage").value)
                 }
                 this.createUserMetric(metric);
+            },
+            onTeamSelected: function(event) {
+                this.getAgents(event.target.value);
             }
         }
     });
