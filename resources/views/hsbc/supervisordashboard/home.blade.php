@@ -55,13 +55,47 @@
         <h1 id="right-pane-title" style="font-size: medium;">No agent selected</h1>
 
         <div class="right-pane">
-            <ul id="metrics-list" style="display: none">
-                <li id="ccpoh"></li>
-                <li id="art"></li>
-                <li id="nps"></li>
-                <li id="fcr"></li>
-                <li id="online_percentage"></li>
-            </ul>
+            <div id="metrics-list" style="display: none">
+                <ul>
+                    <li id="ccpoh"></li>
+                    <li id="art"></li>
+                    <li id="nps"></li>
+                    <li id="fcr"></li>
+                    <li id="online_percentage"></li>
+                </ul>
+
+                <div class="update-metric-toggle" v-on:click="showUpdateForm=!showUpdateForm">Update</div>
+
+                <div id="update-metric-form" class="update-metric-form" v-if="showUpdateForm">
+                    <div class="form-group">
+                        <label>CCPOH: </label>
+                        <input id="update-ccpoh" type="number" step="any" min="0"></input>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ART: </label>
+                        <input id="update-art" type="number" step="any" min="0"></input>
+                    </div>
+
+                    <div class="form-group">
+                        <label>NPS: </label>
+                        <input id="update-nps" type="number" step="any" min="0"></input>
+                    </div>
+
+                    <div class="form-group">
+                        <label>FCR: </label>
+                        <input id="update-fcr" type="number" step="any" min="0"></input>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Online Percentage: </label>
+                        <input id="update-online-percentage" type="number" step="any" min="0"></input>
+                    </div>
+
+                    <button v-on:click="onUpdateMetricClicked()">Update</button>
+                </div>
+            </div>
+
 
             <div id="rewards-list" style="display: none">
                 <div v-for="reward in rewards" class="reward-item">
@@ -141,7 +175,8 @@
             selectedAgent: null,
             rewards: [],
             skillbuilders: [],
-            teams: []
+            teams: [],
+            showUpdateForm: false
         },
         mounted() {
             this.getAgents();
@@ -204,7 +239,6 @@
             createReward: function(reward) {
                 axios.post('/api/rewards', reward)
                 .then(response => {
-                    console.log(response);
                     document.getElementById('reward-success-message').style.display = "block";
                     document.getElementById('reward-success-message').textContent = response.data;
                     document.getElementById("reward-title").value = '';
@@ -217,7 +251,6 @@
             createSkillBuilder: function(skillbuilder) {
                 axios.post('/api/rewards', skillbuilder)
                 .then(response => {
-                    console.log(response);
                     document.getElementById('skillbuilder-success-message').style.display = "block";
                     document.getElementById('skillbuilder-success-message').textContent = response.data;
                     document.getElementById("skillbuilder-title").value = '';
@@ -230,7 +263,6 @@
             removeAgentFromTeam: function() {
                 axios.put(`/api/users/${this.selectedAgent.id}/removeFromTeam`)
                 .then(response => {
-                    console.log(response);
                     document.getElementById('remove-from-team-message').style.display = "block";
                     document.getElementById('remove-from-team-message').textContent = response.data;
                     this.getAgents();
@@ -242,7 +274,6 @@
             addAgentToTeam: function(teamId) {
                 axios.put(`/api/users/${this.selectedAgent.id}/addToTeam`, { teamId : teamId } )
                 .then(response => {
-                    console.log(response);
                     document.getElementById('add-to-team-message').style.display = "block";
                     document.getElementById('add-to-team-message').textContent = response.data;
                     this.getAgents();
@@ -256,6 +287,16 @@
                     .then(() => {
                         var index = this.rewards.findIndex(reward => reward.id == rewardId);
                         this.rewards.splice(index, 1);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            },
+            createUserMetric: function(metric) {
+                axios.post(`/api/users/${this.selectedAgent.id}/usermetrics`, metric)
+                    .then(response => {
+                        alert(response.data);
+                        this.getAgents();
                     })
                     .catch(error => {
                         console.log(error);
@@ -349,6 +390,18 @@
             },
             onRemoveRewardClicked: function(rewardId) {
                 this.deleteReward(rewardId);
+            },
+            onUpdateMetricClicked: function() {
+                var metric =  {
+                    agentId: this.selectedAgent.id,
+                    site: this.selectedAgent.metrics[0].site,
+                    ccpoh: parseFloat(document.getElementById("update-ccpoh").value),
+                    art: parseFloat(document.getElementById("update-art").value),
+                    nps: parseFloat(document.getElementById("update-nps").value),
+                    fcr: parseFloat(document.getElementById("update-fcr").value),
+                    onlinePercentage: parseFloat(document.getElementById("update-online-percentage").value)
+                }
+                this.createUserMetric(metric);
             }
         }
     });

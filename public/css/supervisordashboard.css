@@ -79,3 +79,24 @@
     cursor: pointer;
 }
 
+.update-metric-toggle {
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.update-metric-form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin-top: 10px;
+}
+
+.form-group {
+    display: inline-flex;
+    column-gap: 5px;
+}
+
+.form-group > input {
+    flex-grow: 1
+}

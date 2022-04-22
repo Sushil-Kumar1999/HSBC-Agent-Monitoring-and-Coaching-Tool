@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RewardsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\UserMetricController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,5 @@ Route::put('/users/{user}/addToTeam', [UserController::class, 'apiAddToTeam'])->
 Route::get('teams', [TeamController::class, 'apiIndex'])->name('api.teams.index');
 
 Route::delete('/rewards/{reward}', [RewardsController::class, 'apiDelete'])->name('api.rewards.delete');
+
+Route::post('/users/{userId}/usermetrics', [UserMetricController::class, 'apiStore'])->name('api.usermetrics.store');
