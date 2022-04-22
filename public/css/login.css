@@ -28,6 +28,7 @@ body {
 #button {
     background-color: rgba(3, 3, 3, 0.836);
     width: 170px;
+    color: white;
 }
 
 #button2 {
