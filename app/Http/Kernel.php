@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'ensureuserisagent' => \App\Http\Middleware\EnsureUserIsAgent::class,
         'verifyrewardredeem' => \App\Http\Middleware\VerifyRewardRedeem::class,
         'supervisor' => \App\Http\Middleware\EnsureUserIsSupervisor::class,
+        'ensureuserisadmin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
     ];
 }

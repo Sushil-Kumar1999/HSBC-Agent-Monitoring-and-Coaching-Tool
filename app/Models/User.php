@@ -90,6 +90,28 @@ class User extends Authenticatable
     }
 
     /**
+     * returns a list of the web agents (for admin)
+     */
+    public function webAgents(){
+        return User::where('role','agent')->get();
+    }
+
+    /**
+     * returns a list of the supervisors (for admin)
+     */
+    public function supervisors(){
+        return User::where('role','supervisor')->get();
+    }
+
+    /**
+     * returns a list of the admins (for web agents & supervisors)
+     */
+    public function admins(){
+        return User::where('role','admin')->get();
+    }
+
+
+    /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
