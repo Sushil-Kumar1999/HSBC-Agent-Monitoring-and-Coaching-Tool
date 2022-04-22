@@ -23,11 +23,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="agent in agents" class="table-row" :class="getAgentColors(getLatestMetric(agent.metrics))"
+                    <tr v-for="agent in agents" class="table-row" :class="getAgentColors(getLatestMetric(agent))"
                         v-on:click="onAgentClicked(agent.id)">
                         <td>@{{ agent.id }}</td>
                         <td>@{{ agent.name }}</td>
-                        <td>@{{ getLatestMetric(agent.metrics).qualifier }}</td>
+                        <td>@{{ getLatestMetric(agent).qualifier }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -147,8 +147,8 @@
             this.getAgents();
         },
         methods: {
-            getLatestMetric: function(metrics) {
-                return metrics.reduce((a, b) => a.created_at > b.created_at ? a: b);
+            getLatestMetric: function(agent) {
+                return agent.metrics[agent.metrics.length - 1];
             },
             getAgentColors: function(metric) {
                 return { 'agent-bg-red': metric.qualifier == "Low",
