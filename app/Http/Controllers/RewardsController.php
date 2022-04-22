@@ -57,4 +57,11 @@ class RewardsController extends Controller
 
         return response($resource . " created successfully", 201);
     }
+
+    public function apiDelete(Reward $reward)
+    {
+        $reward->delete();
+
+        return response('Reward deleted successfully', 200);
+    }
 }

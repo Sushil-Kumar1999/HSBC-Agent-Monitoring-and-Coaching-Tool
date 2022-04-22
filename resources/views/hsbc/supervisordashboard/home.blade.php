@@ -68,6 +68,7 @@
                     <div>@{{ reward.title }}</div>
                     <div>@{{ reward.content }}</div>
                     <div>@{{ reward.redeemed  ? 'Reward completed' : 'Reward not completed' }}</div>
+                    <button v-on:click="onRemoveRewardClicked(reward.id)">Remove</button>
                 </div>
             </div>
 
@@ -250,6 +251,16 @@
                     console.log(error);
                 });
             },
+            deleteReward: function(rewardId) {
+                axios.delete(`/api/rewards/${rewardId}`)
+                    .then(() => {
+                        var index = this.rewards.findIndex(reward => reward.id == rewardId);
+                        this.rewards.splice(index, 1);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            },
             onAgentClicked: function(id) {
                 this.selectedAgent = this.agents.find(ag => ag.id == id);
                 document.getElementById('agent-selected-message').textContent = `Agent ${this.selectedAgent.name} (PSID ${this.selectedAgent.id}) selected`;
@@ -335,6 +346,9 @@
             onAssignTeamClicked: function() {
                 var teamId = document.getElementById("team-dropdown").value;
                 this.addAgentToTeam(teamId);
+            },
+            onRemoveRewardClicked: function(rewardId) {
+                this.deleteReward(rewardId);
             }
         }
     });

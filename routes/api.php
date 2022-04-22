@@ -32,3 +32,5 @@ Route::put('/users/{user}/removeFromTeam', [UserController::class, 'apiRemoveFro
 Route::put('/users/{user}/addToTeam', [UserController::class, 'apiAddToTeam'])->name('api.users.addToTeam');
 
 Route::get('teams', [TeamController::class, 'apiIndex'])->name('api.teams.index');
+
+Route::delete('/rewards/{reward}', [RewardsController::class, 'apiDelete'])->name('api.rewards.delete');
