@@ -10,16 +10,17 @@
     <title> HSBC Agent Monitoring and Coaching Tool</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="http://127.0.0.1/js/app.js" defer=""></script>
+
+    <!-- Fonts -->
+
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
      <!-- Bootstrap CSS -->
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
        crossorigin="anonymous">
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
@@ -27,10 +28,11 @@
 </head>
 
 <body class="font-sans antialiased">
-    <nav class="navbar fixed-top navbar-expand-md navbar-dark shadow-sm" id="nav">
-        <div class="container-fluid">
-            <img src="img/hsbc.png" style="width: 50px; height: 50px">
-            <a id="navText"class="navbar navbar-brand" href="{{ url('/') }}">
+<nav class="navbar fixed-top navbar-expand-md navbar-dark shadow-sm" id="nav">
+        <div class="container-fluid position-relative">
+            <img src="img/hsbc.png" href="http://127.0.0.1/login" style="width: 50px; height: 50px" >
+
+            <a id="navText "class="text-white position-absolute top-50 start-50 translate-middle">
                 HSBC Agent Monitoring and Coaching Tool
             </a>
                                     
@@ -75,8 +77,8 @@
 
     <div class=" container-fluid col-lg-12 text-black mb-5 mt-5">
         <div class="row justify-content-between mt-5 mb-5 ">
-            <div class="col-4 fluid-center mx-5 my-5 ">
-                <h1 id="pd" class="fs-1 mb=5">Web Agent Monitoring and Coaching Tool</h1>
+            <div class="col-4 fluid-center mt-4 mx-5">
+                <h1 id="pd" class="fs-1 ">Web Agent Monitoring and Coaching Tool</h1>
 
                 <!-- Session Status -->
                 <x-auth-session-status class="mb-4" :status="session('status')" />
@@ -127,7 +129,7 @@
 
             </div>
         
-            <div class="col-4 fluid-center mt-5 mx-5 my-5">
+            <div class="col-4 fluid-center mt-1 mx-5 ">
                 <img id="img" src="{{ asset('img/logo.jfif') }}" class="img-fluid rounded float-center" alt="logo" width="700" height="300">
         
             </div>
