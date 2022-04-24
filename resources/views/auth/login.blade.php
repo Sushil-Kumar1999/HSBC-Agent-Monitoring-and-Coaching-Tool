@@ -10,7 +10,7 @@
     <title> HSBC Agent Monitoring and Coaching Tool</title>
 
     <!-- Scripts -->
-    <script src="http://127.0.0.1/js/app.js" defer=""></script>
+    <script src="{{ asset('js/app.js') }}"" defer=""></script>
 
     <!-- Fonts -->
 
@@ -30,12 +30,12 @@
 <body class="font-sans antialiased">
 <nav class="navbar fixed-top navbar-expand-md navbar-dark shadow-sm" id="nav">
         <div class="container-fluid position-relative">
-            <img src="img/hsbc.png" href="http://127.0.0.1/login" style="width: 50px; height: 50px" >
+            <img src="img/hsbc.png" href={{ route('login') }}" style="width: 50px; height: 50px" >
 
             <a id="navText "class="text-white position-absolute top-50 start-50 translate-middle">
                 HSBC Agent Monitoring and Coaching Tool
             </a>
-                                    
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -50,7 +50,7 @@
                                 <a class="nav-link active" id="navText" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                         @endif
-                        
+
                     @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -99,7 +99,7 @@
                 <div class="mt-5">
                     <x-label for="password" :value="__('Please enter your password:')" />
 
-    
+
                     <input id="password" type="password" class="form-control" placeholder="Password" aria-label="password" aria-describedby="addon-wrapping"  name="password" required autocomplete="current-password">
                 </div>
 
@@ -128,10 +128,10 @@
                 </div>
 
             </div>
-        
+
             <div class="col-4 fluid-center mt-1 mx-5 ">
                 <img id="img" src="{{ asset('img/logo.jfif') }}" class="img-fluid rounded float-center" alt="logo" width="700" height="300">
-        
+
             </div>
         </div>
     </div>

@@ -32,7 +32,19 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $loggedInUser = Auth::user();
+
+        if ($loggedInUser->role == 'Agent')
+        {
+            return redirect()->route('agentdashboard.show');
+        }
+
+        if ($loggedInUser->role == 'Supervisor')
+        {
+            return redirect()->route('supervisordashboard.show');
+        }
+
+        return redirect()->route('admin.index');
     }
 
     /**
