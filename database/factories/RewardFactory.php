@@ -34,7 +34,7 @@ class RewardFactory extends Factory
                 'Well done for fixing the dip in your statistics'
             ]);
         }else{
-            $title = 'You are elegible for a reward!';
+            $title = 'You are eligible for a reward!';
             $content = $this->faker->randomElement([
                 'Enjoy a 15 minute coffee break',
                 'Treat yourself to a box of chocolates on us',

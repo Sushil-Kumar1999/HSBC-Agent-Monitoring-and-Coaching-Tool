@@ -14,7 +14,7 @@
 
     <title>Supervisor Dashboard</title>
 
-    
+
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&amp;display=swap">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -27,29 +27,28 @@
 
 
     <!-- Styles -->
-    <link rel="stylesheet" href="http://127.0.0.1/css/app.css">
-    <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{asset('css/agentdashboard.css') }}">
     <link rel="stylesheet" href="{{asset('css/splitviewdashboard.css') }}">
     <link rel="stylesheet" href="{{asset('css/supervisordashboard.css') }}">
     <!-- Scripts -->
-    <script src="http://127.0.0.1/js/app.js" defer=""></script>
+    <script src="{{ asset('js/app.js') }}"" defer=""></script>
 
 </head>
 
 <body class="font-sans antialiased">
     <nav class="navbar fixed-top navbar-expand-md navbar-dark shadow-sm" id="nav">
         <div class="container-fluid position-relative">
-            <img src="img/hsbc.png" href="http://127.0.0.1/agentdashboard" style="width: 50px; height: 50px" >
+            <img src="img/hsbc.png" href="{{ route('supervisordashboard.show') }}" style="width: 50px; height: 50px" >
 
-            <a class="nav-link link-light me-auto" aria-current="page" href="http://127.0.0.1/agentdashboard">
+            <a class="nav-link link-light me-auto" aria-current="page" href="{{ route('supervisordashboard.show') }}">
             Supervisor Dashboard
             </a>
 
             <a id="navText "class="text-white position-absolute top-50 start-50 translate-middle">
                 HSBC Agent Monitoring and Coaching Tool
             </a>
-                                    
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -74,11 +73,11 @@
                     <div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute z-50 mt-2 w-48 rounded-md shadow-lg origin-top-right right-0" style="display: none;" @click="open = false">
                         <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white">
                             <!-- Authentication -->
-                                        <form method="POST" action="http://127.0.0.1/logout">
-                                            <input type="hidden" name="_token" value="dA6hUZXf43T4RjxrQdvQUSnWfvKuOZVMjP9enwoX">
-                                            <a class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" href="http://127.0.0.1/logout" onclick="event.preventDefault();
-                                                                this.closest('form').submit();">Log Out</a>
-                                        </form>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                    this.closest('form').submit();">Log Out</a>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -87,7 +86,7 @@
             <!-- Responsive Navigation Menu -->
             <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
                 <div class="pt-2 pb-3 space-y-1">
-                    <a class="block pl-3 pr-4 py-2 border-l-4 border-indigo-400 text-base font-medium text-indigo-700 bg-indigo-50 focus:outline-none focus:text-indigo-800 focus:bg-indigo-100 focus:border-indigo-700 transition duration-150 ease-in-out" href="http://127.0.0.1/agentdashboard">
+                    <a class="block pl-3 pr-4 py-2 border-l-4 border-indigo-400 text-base font-medium text-indigo-700 bg-indigo-50 focus:outline-none focus:text-indigo-800 focus:bg-indigo-100 focus:border-indigo-700 transition duration-150 ease-in-out" href="{{ route('supervisordashboard.show') }}">
                             Supervisor Dashboard
                     </a>
                 </div>
@@ -101,9 +100,9 @@
 
                     <div class="mt-3 space-y-1">
                         <!-- Authentication -->
-                        <form method="POST" action="http://127.0.0.1/logout">
+                        <form method="POST" action="{{ route('logout') }}">
                             <input type="hidden" name="_token" value="dA6hUZXf43T4RjxrQdvQUSnWfvKuOZVMjP9enwoX">
-                            <a class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out" href="http://127.0.0.1/logout" onclick="event.preventDefault();
+                            <a class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                     Log Out
                             </a>
@@ -116,7 +115,7 @@
     </nav>
 
 
-    
+
 
     <main>
         <div class="mt-4 pt-3 ">
@@ -552,7 +551,7 @@
                 </script>
 
          </main>
-    </div> 
+    </div>
 
 </body>
 </html>
