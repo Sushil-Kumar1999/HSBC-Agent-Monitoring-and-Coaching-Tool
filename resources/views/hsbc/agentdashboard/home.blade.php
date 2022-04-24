@@ -31,6 +31,11 @@
     <link rel="stylesheet" href="{{asset('css/rewardviewer.css') }}">
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"" defer=""></script>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 279bc453b394e421f47effe883e9a75d51c32be2
     <!-- use App\Models\User;
     use App\Models\Team; lead to an error -->
     @php
@@ -45,12 +50,20 @@
     <nav class="navbar fixed-top navbar-expand-md navbar-dark shadow-sm" id="nav">
         <div class="container-fluid position-relative">
             <img src="img/hsbc.png" href="{{ route('agentdashboard.show') }}" style="width: 50px; height: 50px" >
+<<<<<<< HEAD
+=======
+
+>>>>>>> 279bc453b394e421f47effe883e9a75d51c32be2
             <a class="nav-link link-light me-auto" aria-current="page" href="{{ route('agentdashboard.show') }}">
                 Agent Dashboard
             </a>
             <a id="navText "class="text-white position-absolute top-50 start-50 translate-middle">
                 HSBC Agent Monitoring and Coaching Tool
             </a>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 279bc453b394e421f47effe883e9a75d51c32be2
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -141,5 +154,9 @@
                             </div>
                     </main>
     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 279bc453b394e421f47effe883e9a75d51c32be2
 </body>
 </html>

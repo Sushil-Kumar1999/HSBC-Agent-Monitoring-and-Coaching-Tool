@@ -95,13 +95,12 @@ class AdminController extends Controller
         ]);
         
         $w = new User;
-        $w->id = time(); // Unsure how to assign ID when its not auto-incremement. Using time() is just wrong.
+        $w->id = time();
         $w->name = $validatedData['name'];
         $w->email = $validatedData['email'];
-        // Need to validate Team Name selection (maybe drop down list?)
         $w->team_id = Team::get()->where('name', $validatedData['team_name'])->first()->team_id;
         $w->role = 'Agent';
-        $w->password = 'password';
+        $w->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; //password
         $w->save();
 
         session()->flash('message', 'Web Agent was created.');
@@ -123,7 +122,7 @@ class AdminController extends Controller
         ]);
         
         $s = new User;
-        $s->id = time(); // Unsure how to assign ID when its not auto-incremement. Using time() seems wrong.
+        $s->id = time();
         $s->name = $validatedData['name'];
         $s->email = $validatedData['email'];
         $s->team_id = 0;
