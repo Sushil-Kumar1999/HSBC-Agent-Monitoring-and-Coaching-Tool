@@ -11,7 +11,7 @@
 
     <title>Admin Dashboard</title>
 
-    
+
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&amp;display=swap">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -24,29 +24,29 @@
 
 
     <!-- Styles -->
-    <link rel="stylesheet" href="http://127.0.0.1/css/app.css">
-    <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{asset('css/agentdashboard.css') }}">
     <link rel="stylesheet" href="{{asset('css/splitviewdashboard.css') }}">
     <link rel="stylesheet" href="{{asset('css/rewardviewer.css') }}">
     <!-- Scripts -->
-    <script src="http://127.0.0.1/js/app.js" defer=""></script>
+    <script src="{{ asset('js/app.js') }}"" defer=""></script>
 
 </head>
 
 <body class="font-sans antialiased">
     <nav class="navbar fixed-top navbar-expand-md navbar-dark shadow-sm" id="nav">
         <div class="container-fluid position-relative">
-            <img src="img/hsbc.png" href="http://127.0.0.1/agentdashboard" style="width: 50px; height: 50px" >
+            <img src="img/hsbc.png" href="{{ route('admin.index') }}" style="width: 50px; height: 50px" >
 
-            <a class="nav-link link-light me-auto" aria-current="page" href="http://127.0.0.1/agentdashboard">
+            <a class="nav-link link-light me-auto" aria-current="page" href="{{ route('admin.index') }}">
                 Admin Dashboard
             </a>
 
             <a id="navText "class="text-white position-absolute top-50 start-50 translate-middle">
                 HSBC Agent Monitoring and Coaching Tool
             </a>
-                                    
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -71,11 +71,11 @@
                     <div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute z-50 mt-2 w-48 rounded-md shadow-lg origin-top-right right-0" style="display: none;" @click="open = false">
                         <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white">
                             <!-- Authentication -->
-                                        <form method="POST" action="http://127.0.0.1/logout">
-                                            <input type="hidden" name="_token" value="dA6hUZXf43T4RjxrQdvQUSnWfvKuOZVMjP9enwoX">
-                                            <a class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" href="http://127.0.0.1/logout" onclick="event.preventDefault();
-                                                                this.closest('form').submit();">Log Out</a>
-                                        </form>
+                            <form method="POST" action="{{ route('logout') }}"">
+                                @csrf
+                                <a class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                    this.closest('form').submit();">Log Out</a>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -113,41 +113,35 @@
     </nav>
 
     <div class="mt-3">
+        <main>
+            <div class="mt-5 p-3">
+                <div class="tab">
+                    <button class="tablinks" onclick="openTab(event, 'Supervisors')" id="supervisorsTab">Supervisors</button>
+                    <button class="tablinks" onclick="openTab(event, 'Web Agents')" id="agentsTab">Web Agents</button>
+                </div>
 
-    <main>
-                        <div class="mt-5 p-3">
-                            <div class="tab">
-                                <button class="tablinks" onclick="openTab(event, 'Supervisors')" id="supervisorsTab">Supervisors</button>
-                                <button class="tablinks" onclick="openTab(event, 'Web Agents')" id="agentsTab">Web Agents</button>
-                                </div>
+                @include('hsbc.admin.showSupervisors')
+                @include('hsbc.admin.showWebAgents')
 
-                                @include('hsbc.admin.showSupervisors')
-                                @include('hsbc.admin.showWebAgents')
-
-                                <script>
-                                document.getElementById("{!!$page!!}").click();
-                                function openTab(evt, tabName) {
-                                    var i, tabcontent, tablinks;  
-                                    tabcontent = document.getElementsByClassName("tabcontent");
-                                    for (i = 0; i < tabcontent.length; i++) {
-                                    tabcontent[i].style.display = "none";
-                                    }
-                                    tablinks = document.getElementsByClassName("tablinks");
-                                    for (i = 0; i < tablinks.length; i++) {
-                                    tablinks[i].className = tablinks[i].className.replace(" active", "");
-                                    }
-                                    document.getElementById(tabName).style.display = "block";
-                                    evt.currentTarget.className += " active"; 
-                                }
-                                </script>
-
-        
-                            </div>
-                        </div>
-
-                    </main>
-    </div> 
-
+                <script>
+                    document.getElementById("{!!$page!!}").click();
+                    function openTab(evt, tabName) {
+                        var i, tabcontent, tablinks;
+                        tabcontent = document.getElementsByClassName("tabcontent");
+                        for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                        }
+                        tablinks = document.getElementsByClassName("tablinks");
+                        for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace(" active", "");
+                        }
+                        document.getElementById(tabName).style.display = "block";
+                        evt.currentTarget.className += " active";
+                    }
+                </script>
+            </div>
+        </main>
+    </div>
 </body>
 </html>
 
