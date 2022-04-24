@@ -100,11 +100,7 @@
 
                     <div class="mt-3 space-y-1">
                         <!-- Authentication -->
-<<<<<<< HEAD
-                        <form method="POST" action="http://127.0.0.1/">
-=======
                         <form method="POST" action="{{ route('logout') }}">
->>>>>>> 279bc453b394e421f47effe883e9a75d51c32be2
                             <input type="hidden" name="_token" value="dA6hUZXf43T4RjxrQdvQUSnWfvKuOZVMjP9enwoX">
                             <a class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
