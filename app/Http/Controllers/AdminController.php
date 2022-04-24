@@ -18,7 +18,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        return view('hsbc.admin.index');
     }
 
     public function showWebAgents(User $user)

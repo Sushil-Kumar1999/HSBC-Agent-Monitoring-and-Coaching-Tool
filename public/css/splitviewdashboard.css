@@ -39,4 +39,6 @@ ul {
 
 #button {
     width: 545px;
+    margin-left: auto;
+    margin-right: auto;
 }
