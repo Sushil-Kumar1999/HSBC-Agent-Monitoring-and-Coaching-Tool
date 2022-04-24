@@ -26,6 +26,7 @@ class VerifyRewardRedeem
         if($r->redeemed){
             return redirect()->route('agentdashboard.show')->with('message','You have already redeemed this reward.')->with('page',$page);
         }
+        
         return $next($request);
     }
 }
