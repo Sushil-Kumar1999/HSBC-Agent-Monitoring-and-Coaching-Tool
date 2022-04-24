@@ -34,7 +34,7 @@
      <li>Supervisor: {{$supervisor->name}} ({{$supervisor->id}})</li>
     </ul>
     @else
-    <b>No data loaded</b>
+    <b>You do not have any metrics recorded</b>
     @endif
   </div>
   <div id="col-2">
