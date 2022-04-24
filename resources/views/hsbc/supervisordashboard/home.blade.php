@@ -101,7 +101,7 @@
 
                     <div class="mt-3 space-y-1">
                         <!-- Authentication -->
-                        <form method="POST" action="http://127.0.0.1/logout">
+                        <form method="POST" action="http://127.0.0.1/">
                             <input type="hidden" name="_token" value="dA6hUZXf43T4RjxrQdvQUSnWfvKuOZVMjP9enwoX">
                             <a class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out" href="http://127.0.0.1/logout" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
@@ -158,13 +158,13 @@
 
                             <p id="agent-selected-message" class="fs-5 fw-bold text-black text-center pt-3 mt-3 mb-3 text-uppercase">No agent selected </p>
 
-                            <div class="btn-toolbar button-container" role="group" >
-                                <button id="viewButton" type="button" class="btn btn-dark" v-on:click="onViewMetricsClicked()">View Metrics</button>
-                                <button id="viewButton" type="button" class="btn btn-dark"  v-on:click="onViewRewardsClicked()">View Rewards</button>
-                                <button id="viewButton" type="button" class="btn btn-dark" v-on:click="onViewSkillbuildersClicked()">View Skill Builders</button>
-                                <button id="viewButton" type="button" class="btn btn-dark" v-on:click="onAssignRewardClicked()">Assign Reward</button>
-                                <button id="viewButton" type="button" class="btn btn-dark" v-on:click="onAssignSkillBuilderClicked()">Assign Skill Builder</button>
-                                <button id="viewButton" type="button" class="btn btn-dark" v-on:click="onViewTeamClicked()">View Team</button>
+                            <div class="btn-toolbar button-container " role="group" >
+                                <button id="viewButton" type="button" class="btn btn-dark mx-auto" v-on:click="onViewMetricsClicked()">View Metrics</button>
+                                <button id="viewButton" type="button" class="btn btn-dark mx-auto"  v-on:click="onViewRewardsClicked()">View Rewards</button>
+                                <button id="viewButton" type="button" class="btn btn-dark mx-auto" v-on:click="onViewSkillbuildersClicked()">View Skill Builders</button>
+                                <button id="viewButton" type="button" class="btn btn-dark mx-auto" v-on:click="onAssignRewardClicked()">Assign Reward</button>
+                                <button id="viewButton" type="button" class="btn btn-dark mx-auto" v-on:click="onAssignSkillBuilderClicked()">Assign Skill Builder</button>
+                                <button id="viewButton" type="button" class="btn btn-dark mx-auto" v-on:click="onViewTeamClicked()">View Team</button>
                             </div>
                         </div>
                     </div>
@@ -182,7 +182,9 @@
                                     <li id="online_percentage" class="mb-2"></li>
                                 </ul>
 
-                                <div id = "button"class="update-metric-toggle text-white btn border-0 btn-success" v-on:click="showUpdateForm=!showUpdateForm" >Update</div>
+                                <button  id="button" class="mx-auto update-metric-toggle text-white btn border-0 btn-success" v-on:click="showUpdateForm=!showUpdateForm" >
+                                    Update
+                                </button>
 
                                 <div id="update-metric-form" class="update-metric-form" v-if="showUpdateForm">
                                     <div class="form-group mt-3">
