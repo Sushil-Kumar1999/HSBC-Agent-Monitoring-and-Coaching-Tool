@@ -47,10 +47,6 @@
     <nav class="navbar fixed-top navbar-expand-md navbar-dark shadow-sm" id="nav">
         <div class="container-fluid position-relative">
             <img src="img/hsbc.png" href="{{ route('agentdashboard.show') }}" style="width: 50px; height: 50px" >
-<<<<<<< HEAD
-=======
-
->>>>>>> 279bc453b394e421f47effe883e9a75d51c32be2
             <a class="nav-link link-light me-auto" aria-current="page" href="{{ route('agentdashboard.show') }}">
                 Agent Dashboard
             </a>

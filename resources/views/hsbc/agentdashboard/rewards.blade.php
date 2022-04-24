@@ -49,7 +49,6 @@
     var rewardContent = document.getElementById('reward-viewer');
     rewardTitle.textContent = title;
     rewardContent.textContent = content;
-    //this method is really messy but it works
     if(previousReward!=null){
         previousReward.style.visibility = "hidden";
     }
