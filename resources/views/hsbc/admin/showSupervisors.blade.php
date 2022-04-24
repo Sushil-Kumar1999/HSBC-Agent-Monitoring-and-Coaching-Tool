@@ -143,7 +143,11 @@
                         <h1 id="right-pane-title" style="font-size: medium;">Create Supervisor</h1>
 
                         <ul  >
-                            <button style="width: 400px;" class=" d-grid align-middle mx-auto text-white btn border-0 btn-success" href="{{route('admin.createSupervisor')}}">Create Supervisor</button>
+                            <button style="width: 400px;" class=" d-grid align-middle mx-auto text-white btn border-0 btn-success" >
+                        
+                            <a href="{{route('admin.createSupervisor')}}" >Create Supervisor</a>
+                        
+                            </button>
                         </ul>
 
 

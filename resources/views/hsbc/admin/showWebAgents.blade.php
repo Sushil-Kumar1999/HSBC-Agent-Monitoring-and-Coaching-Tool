@@ -120,7 +120,7 @@
             <section id="root" class="container ">
 
                 <div id="col-1">
-                    <h1 style="font-size: medium;">Supervisors List
+                    <h1 style="font-size: medium;">Web Agents List
                     </h1>
 
                     <div class="left-pane">
@@ -138,8 +138,10 @@
                     <h1 id="right-pane-title" style="font-size: medium;">Create Web Agent</h1>
 
                     <ul>
-                        <button style="width: 400px;" class=" d-grid align-middle mx-auto text-white btn border-0 btn-success"
-                         href="{{route('admin.createWebAgent')}}">Create Web Agent</button>
+                        <button style="width: 400px;" class=" d-grid align-middle mx-auto text-white btn border-0 btn-success"> 
+                            <a href="{{route('admin.createWebAgent')}}"> Create Web Agent </a> 
+                            
+                        </button>
                     </ul>
 
 
