@@ -117,9 +117,7 @@
 
 
 
-    <main>
-        <div class="mt-4 pt-3 ">
-            <section id="root" class="container ">
+F
 
                     <div id="col-1">
                         <h1 style="font-size: medium;">Agents List</h1>

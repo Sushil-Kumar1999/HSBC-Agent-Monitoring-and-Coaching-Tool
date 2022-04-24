@@ -25,7 +25,7 @@ class AdminController extends Controller
     {
         $webAgents = $user->webAgents();
 
-        return view('admin.showWebAgents')
+        return view('hsbc.admin.showWebAgents')
             ->with("webAgents", $webAgents);
     }
 
@@ -33,14 +33,14 @@ class AdminController extends Controller
     {
         $supervisors = $user->supervisors();
 
-        return view('admin.showSupervisors')
+        return view('hsbc.admin.showSupervisors')
             ->with("supervisors", $supervisors);
     }
 
     public function webAgentDetails(User $user)
     {
         $supervisor = $user->team()->first()->supervisor;
-        return view('admin.webAgentDetails')
+        return view('hsbc.admin.webAgentDetails')
             ->with("user", $user)
             ->with("supervisor", $supervisor);
     }
@@ -53,7 +53,7 @@ class AdminController extends Controller
         } else {
             $webAgents = [];
         }
-        return view('admin.supervisorDetails')
+        return view('hsbc.admin.supervisorDetails')
             ->with("user", $user)
             ->with("webAgents", $webAgents);
     }
@@ -66,7 +66,7 @@ class AdminController extends Controller
     public function createWebAgent()
     {
         $teams = Team::all();
-        return view('admin.createWebAgent')
+        return view('hsbc.admin.createWebAgent')
             ->with("teams", $teams);
     }
 
@@ -77,7 +77,7 @@ class AdminController extends Controller
      */
     public function createSupervisor()
     {
-        return view('admin.createSupervisor');
+        return view('hsbc.admin.createSupervisor');
     }
 
     /**
@@ -149,7 +149,7 @@ class AdminController extends Controller
     public function editWebAgent(User $user)
     {
         $teams = Team::all();
-        return view('admin.editWebAgent')
+        return view('hsbc.admin.editWebAgent')
             ->with("user", $user)
             ->with("teams", $teams);
     }
@@ -162,7 +162,7 @@ class AdminController extends Controller
      */
     public function editSupervisor(User $user)
     {
-        return view('admin.editSupervisor')
+        return view('hsbc.admin.editSupervisor')
             ->with("user", $user);
     }
 

@@ -22,3 +22,8 @@ body {
 #title {
     font-size: large;
 }
+
+#supervisor {
+    background-color: rgb(170, 9, 9);
+    color: white;
+}

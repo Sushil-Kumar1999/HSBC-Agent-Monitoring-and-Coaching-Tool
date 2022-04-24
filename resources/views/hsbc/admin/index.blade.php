@@ -1,8 +1,7 @@
 @extends('layouts.navigationbar')
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-<!-- @section('content') -->
 <head>
 
     <meta charset="utf-8">
@@ -30,7 +29,7 @@
     <link rel="stylesheet" href="{{asset('css/splitviewdashboard.css') }}">
     <link rel="stylesheet" href="{{asset('css/rewardviewer.css') }}">
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"" defer=""></script>
+    <script src="{{ asset('js/app.js') }}" defer=""></script>
 
 </head>
 
@@ -71,7 +70,7 @@
                     <div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute z-50 mt-2 w-48 rounded-md shadow-lg origin-top-right right-0" style="display: none;" @click="open = false">
                         <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white">
                             <!-- Authentication -->
-                            <form method="POST" action="{{ route('logout') }}"">
+                            <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <a class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                     this.closest('form').submit();">Log Out</a>
@@ -114,32 +113,21 @@
 
     <div class="mt-3">
         <main>
-            <div class="mt-5 p-3">
-                <div class="tab">
-                    <button class="tablinks" onclick="openTab(event, 'Supervisors')" id="supervisorsTab">Supervisors</button>
-                    <button class="tablinks" onclick="openTab(event, 'Web Agents')" id="agentsTab">Web Agents</button>
+        <div class="mt-5 p-3">
+            <div class="py-12">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8" >
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6  text-center bg-white border-b border-gray-200" >
+                            <ul><a class="fs-3 link-danger" href="{{route('admin.showSupervisors')}}">Supervisors</a></ul>
+                        </div>
+                        <div class="p-6 text-center bg-white border-b border-gray-200">
+                   
+                            <ul><a class="fs-3 link-danger" href="{{route('admin.showWebAgents')}}">Web Agents</a></ul>
+                        </div>
+                    </div>
                 </div>
-
-                @include('hsbc.admin.showSupervisors')
-                @include('hsbc.admin.showWebAgents')
-
-                <script>
-                    document.getElementById("{!!$page!!}").click();
-                    function openTab(evt, tabName) {
-                        var i, tabcontent, tablinks;
-                        tabcontent = document.getElementsByClassName("tabcontent");
-                        for (i = 0; i < tabcontent.length; i++) {
-                        tabcontent[i].style.display = "none";
-                        }
-                        tablinks = document.getElementsByClassName("tablinks");
-                        for (i = 0; i < tablinks.length; i++) {
-                        tablinks[i].className = tablinks[i].className.replace(" active", "");
-                        }
-                        document.getElementById(tabName).style.display = "block";
-                        evt.currentTarget.className += " active";
-                    }
-                </script>
             </div>
+   
         </main>
     </div>
 </body>
