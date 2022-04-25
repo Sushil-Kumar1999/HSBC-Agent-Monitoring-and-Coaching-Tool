@@ -36,7 +36,7 @@
 <body class="font-sans antialiased">
     <nav class="navbar fixed-top navbar-expand-md navbar-dark shadow-sm" id="nav">
         <div class="container-fluid position-relative">
-            <img src="img/hsbc.png" href="{{ route('admin.index') }}" style="width: 50px; height: 50px" >
+            <img src="{{ asset('img/hsbc.png') }}" href="{{ route('admin.index') }}" style="width: 50px; height: 50px">
 
             <a class="nav-link link-light me-auto" aria-current="page" href="{{ route('admin.index') }}">
                 Admin Dashboard
@@ -122,7 +122,7 @@
                             </h2>
 
                         </div>
-                            
+
                         <div class="p-6 bg-white border-b border-gray-200">
                         <form method="POST" action="{{ route('admin.storeWebAgent') }}">
                             @csrf
@@ -137,7 +137,7 @@
                             <textarea id="email" name="email" rows="1" cols="100" value="{{ old('email') }}"></textarea>
                             <br><br>
 
-                            
+
                             <label for="team_name">Team:</label>
                             <br></br>
                             <select name="team_name">

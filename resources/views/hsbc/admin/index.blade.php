@@ -36,7 +36,7 @@
 <body class="font-sans antialiased">
     <nav class="navbar fixed-top navbar-expand-md navbar-dark shadow-sm" id="nav">
         <div class="container-fluid position-relative">
-            <img src="img/hsbc.png" href="{{ route('admin.index') }}" style="width: 50px; height: 50px" >
+            <img src="{{ asset('img/hsbc.png') }}" href="{{ route('admin.index') }}" style="width: 50px; height: 50px">
 
             <a class="nav-link link-light me-auto" aria-current="page" href="{{ route('admin.index') }}">
                 Admin Dashboard
@@ -121,13 +121,13 @@
                             <ul><a class="fs-3 link-danger" href="{{route('admin.showSupervisors')}}">Supervisors</a></ul>
                         </div>
                         <div class="p-6 text-center bg-white border-b border-gray-200">
-                   
+
                             <ul><a class="fs-3 link-danger" href="{{route('admin.showWebAgents')}}">Web Agents</a></ul>
                         </div>
                     </div>
                 </div>
             </div>
-   
+
         </main>
     </div>
 </body>

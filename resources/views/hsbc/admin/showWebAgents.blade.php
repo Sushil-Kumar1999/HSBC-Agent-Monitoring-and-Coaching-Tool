@@ -38,8 +38,8 @@
     <nav class="navbar fixed-top navbar-expand-md navbar-dark shadow-sm mb-5" id="nav">
         <div class="container-fluid position-relative">
 
-            <img  href="{{ route('admin.index') }}" style="width: 50px; height: 50px" src="img/hsbc.png">
-            
+            <img src="{{ asset('img/hsbc.png') }}" href="{{ route('admin.index') }}" style="width: 50px; height: 50px">
+
 
             <a class="nav-link link-light me-auto" aria-current="page" href="{{ route('admin.index') }}">
                 Admin Dashboard
@@ -114,7 +114,7 @@
         </div>
     </nav>
 
-    
+
     <main class="mt-5">
         <div class="mt-5 pt-5 ">
             <section id="root" class="container ">
@@ -138,9 +138,9 @@
                     <h1 id="right-pane-title" style="font-size: medium;">Create Web Agent</h1>
 
                     <ul>
-                        <button style="width: 400px;" class=" d-grid align-middle mx-auto text-white btn border-0 btn-success"> 
-                            <a href="{{route('admin.createWebAgent')}}"> Create Web Agent </a> 
-                            
+                        <button style="width: 400px;" class=" d-grid align-middle mx-auto text-white btn border-0 btn-success">
+                            <a href="{{route('admin.createWebAgent')}}"> Create Web Agent </a>
+
                         </button>
                     </ul>
 
@@ -149,7 +149,7 @@
 
                 </div>
         </div>
-   
+
     </main>
 
 

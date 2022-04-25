@@ -36,7 +36,7 @@
 <body class="font-sans antialiased">
     <nav class="navbar fixed-top navbar-expand-md navbar-dark shadow-sm" id="nav">
         <div class="container-fluid position-relative">
-            <img src="img/hsbc.png" href="{{ route('admin.index') }}" style="width: 50px; height: 50px" >
+            <img src="{{ asset('img/hsbc.png') }}" href="{{ route('admin.index') }}" style="width: 50px; height: 50px">
 
             <a class="nav-link link-light me-auto" aria-current="page" href="{{ route('admin.index') }}">
                 Admin Dashboard
@@ -118,11 +118,11 @@
                     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8" >
                         <div id="supervisor" class="p-3  overflow-hidden shadow-sm ">
                             <h2 class="font-semibold text-xl text-800 leading-tight">
-                                Supervisor: {{$user->name}} 
+                                Supervisor: {{$user->name}}
                             </h2>
 
                         </div>
-                            
+
                         <div class="p-6 bg-white border-b border-gray-200">
                             <p class="fs-5 mb-2 "><b class="mr-3">Email:</b> {{$user->email}}</p>
                             <p></p>
