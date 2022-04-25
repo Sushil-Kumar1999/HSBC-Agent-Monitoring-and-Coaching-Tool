@@ -17,9 +17,7 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/login');
 
 Route::get('/agentdashboard',[AgentDashboardController::class,'show'])->middleware(['auth','ensureuserisagent'])->name('agentdashboard.show');
 
