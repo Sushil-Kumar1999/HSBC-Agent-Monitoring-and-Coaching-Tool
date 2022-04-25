@@ -168,11 +168,18 @@
               stat=online_percentage;
               statName="Online Percentage";
           }
-          stat = stat.slice(4);
-            var current = stat[0];
+          //traverses backwards through the past 4 entries and 
+          //calculates the overall change in value
+          stat = stat.slice(-4);
+            var current = stat[stat.length-1];
             var diff=0;
-            for(let i = 0; i < stat.length; i++){
-              diff += stat[i]-current;
+            for(let i = stat.length-1; i >=0 ; i--){
+              //for ART reverse 
+              if(statName=="ART"){
+                diff += stat[i]-current;
+              }else{
+                diff += current-stat[i];
+              }
               current = stat[i];
             }
             improvingText.textContent = ("Your "+statName+" is " +(diff<0? "not":"")+" improving!");
