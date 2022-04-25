@@ -6,11 +6,12 @@
     $rewards = $user->rewards()->get();
     @endphp
     @if(count($rewards)>0)
-    <div class = "reward">
+    
         @foreach($rewards as $reward)
         @php
         $supervisor = $reward->supervisor()->first();
         @endphp
+        <div class = "reward">
           <div class = "content"><div class= "title">{{$reward->title}}{{$reward->redeemed?" (redeemed)":""}}</div><br>Given by {{$supervisor->name}} ({{$supervisor->id}})</div>
           <div class = "expandbutton"><input type="image" src="{{ asset('img/expand.png') }}" height="60px" width="60px" onClick=
           "onRewardExpand(
@@ -19,8 +20,9 @@
             '{!! htmlspecialchars($reward->content)!!}', 
             {!! json_encode($reward->redeemed) !!}
           )"/></div>
+        </div>
         @endforeach
-    </div>
+    
     @endif
   </div>
   <div id="col-2">
