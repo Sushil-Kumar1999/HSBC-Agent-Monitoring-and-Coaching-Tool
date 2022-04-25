@@ -7,16 +7,16 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
 
-    
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    
+
     public function up()
     {
-        schema::create('user-metrics', function (Blueprint $table) {
+        schema::create('user_metrics', function (Blueprint $table) {
             $table->unsignedBigInteger('psid');
             $table->string('site',64);
             $table->enum('qualifier', ['Good', 'Medium', 'Low']);
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->double('nps', 22, 20);
             $table->double('fcr', 22, 20);
             $table->double('online_percentage', 22, 20);
+            $table->unsignedBigInteger('timestamp');
             $table->timestamps();
         });
     }
