@@ -23,14 +23,14 @@
     <h1>Statistics for {{$user->name}}</h1>
     <ul >
     @if (!is_null($latestmetric))
-    
-     <li>Site: {{$latestmetric->site}}</li>
-     <li>Qualifier: {{$latestmetric->qualifier}}</li>
-     <li>CCPOH: {{$latestmetric->ccpoh}}</li>
-     <li>ART: {{$latestmetric->art}}</li>
-     <li>NPS: {{$latestmetric ->nps}}</li>
-     <li>FCR: {{$latestmetric->fcr}}</li>
-     <li>Online Percentage: {{$latestmetric ->online_percentage}}</li>
+     <li>Site: {{$latestmetric->site,2}}</li>
+     <li>Qualifier: {{$latestmetric->qualifier,2}}</li>
+     <li>CCPOH: {{round($latestmetric->ccpoh,2)}}</li>
+     <li>ART: {{round($latestmetric->art,2)}}</li>
+     <li>NPS: {{round($latestmetric ->nps,2)}}%</li>
+     <li>FCR: {{round($latestmetric->fcr,2)}}%</li>
+     <li>Online Percentage: {{round($latestmetric ->online_percentage,2)}}%</li>
+     <li>Score: {{round($user->score(),2)}}</li>
      <li>Team: {{$team->name}}</li>
      <li>Supervisor: {{$supervisor->name}} ({{$supervisor->id}})</li>
     @else

@@ -87,7 +87,7 @@ class User extends Authenticatable
     public function score(){
         $metrics = $this->metrics()->first();
         if($metrics !=null){
-            return round(($metrics->ccpoh/.30)+($metrics->art/.30) +$metrics->nps+$metrics->fcr+$metrics->online_percentage,1);
+            return round(max(((($metrics->ccpoh*($metrics->nps/100)*5)-$metrics->art)+$metrics->fcr+$metrics->online_percentage)/3,0),1);
         }
         return 0;
         
