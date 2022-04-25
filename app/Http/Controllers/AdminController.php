@@ -118,7 +118,7 @@ class AdminController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|max:255',
-            'team_name' => 'required',
+            'team_name' => 'required|max:255',
         ]);
         
         $s = new User;
@@ -127,7 +127,7 @@ class AdminController extends Controller
         $s->email = $validatedData['email'];
         $s->team_id = 0;
         $s->role = 'Supervisor';
-        $s->password = 'password';
+        $s->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; //password
         $s->save();
 
         $t = new Team;
