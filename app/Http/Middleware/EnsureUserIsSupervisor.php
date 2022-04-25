@@ -17,9 +17,18 @@ class EnsureUserIsSupervisor
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->role!="Supervisor"){
-            return redirect('welcome')->with('message','You are not authorized');
+        $role = Auth::user()->role;
+
+        if ($role != 'Supervisor') {
+            if($role == 'Admin'){
+                return redirect()->route('admin.index')->with('message','You are not authorized to access supervisor dashboard');
+            }
+            if($role == 'Agent'){
+                return redirect()->route('agentdashboard.show')->with('message','You are not authorized to access supervisor dashboard');
+            }
+            return redirect()->route('login')->with('message', 'Something went wrong with your request');
         }
+
         return $next($request);
     }
 }

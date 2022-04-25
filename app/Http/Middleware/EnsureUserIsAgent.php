@@ -17,9 +17,18 @@ class EnsureUserIsAgent
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->role!="Agent"){
-            return redirect('welcome')->with('message','something went wrong with your request');
+        $role = Auth::user()->role;
+
+        if ($role != 'Agent') {
+            if($role == 'Admin'){
+                return redirect()->route('admin.index')->with('message','You are not authorized to access agent dashboard');
+            }
+            if($role == 'Supervisor'){
+                return redirect()->route('supervisordashboard.show')->with('message','You are not authorized to access agent dashboard');
+            }
+            return redirect()->route('login')->with('message', 'Something went wrong with your request');
         }
+
         return $next($request);
     }
 }
