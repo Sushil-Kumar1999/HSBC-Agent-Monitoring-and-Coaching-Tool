@@ -22,6 +22,7 @@
 ul {
     background-color: white;
     padding: 30px;
+    min-height: 75%;
 }
 
 #col-2 {
@@ -35,6 +36,13 @@ ul {
     background-color: rgba(0, 0, 0, 0.85);
     width: 550px;
 }
+
+.agentButton {
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    width: fit-content;
+}
+
 
 
 #button {

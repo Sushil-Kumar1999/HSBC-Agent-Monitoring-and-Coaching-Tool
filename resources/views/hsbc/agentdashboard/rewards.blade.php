@@ -30,7 +30,7 @@
    </div>
    @foreach($rewards as $reward)
    @if(!($reward->redeemed))
-   <form method="POST" action="{{route('reward.redeem',['reward'=> $reward])}}" id = reward_{{$reward->id}}>
+   <form class = "agentButton" method="POST" action="{{route('reward.redeem',['reward'=> $reward])}}" id = reward_{{$reward->id}}>
         @csrf
         @method('PUT')
         <input type="submit" value ="Redeem">

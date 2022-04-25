@@ -3,7 +3,7 @@
  <section class="container">
  @php
   use App\Models\UserMetric;
-  $metrics = $user->metrics()->get();
+  $metrics = $user->metrics()->take(30)->get();
   $latestmetric = null;
   if($metrics != null){
     $latestmetric = $metrics->last();
@@ -21,8 +21,9 @@
 
   <div id="col-1">
     <h1>Statistics for {{$user->name}}</h1>
+    <ul >
     @if (!is_null($latestmetric))
-    <ul>
+    
      <li>Site: {{$latestmetric->site}}</li>
      <li>Qualifier: {{$latestmetric->qualifier}}</li>
      <li>CCPOH: {{$latestmetric->ccpoh}}</li>
@@ -32,10 +33,10 @@
      <li>Online Percentage: {{$latestmetric ->online_percentage}}</li>
      <li>Team: {{$team->name}}</li>
      <li>Supervisor: {{$supervisor->name}} ({{$supervisor->id}})</li>
-    </ul>
     @else
     <b>You do not have any metrics recorded</b>
     @endif
+    </ul>
   </div>
   <div id="col-2">
     <h1>Personal Progress</h1>
